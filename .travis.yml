@@ -1,1 +1,8 @@
 
+install:
+  - # feature: json linting, 1 line
+  - npm install jsonlint -g
+
+script:
+  - # feature: json linting, 1 line
+  - find . -name "*.json" -type f -exec jsonlint -q "{}" \; -exec /bin/echo "{}" \;
