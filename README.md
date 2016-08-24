@@ -1,2 +1,1 @@
-# linux
-consulting services, bits and pieces for Linux projects
+Continuous integration snippets and common tasks for devops on Linux.
