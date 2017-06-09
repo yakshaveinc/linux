@@ -1,8 +1,6 @@
 DevOps/DX for Linux. Continuous integration snippets and common tasks.
 
-[![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
-
-* [ ] Adding automatic build to Linux projects through Travis
+* [ ] Adding automatic build to Linux projects through Travis - [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
 * [ ] Adding build status indicators to your development dashboard
 
 ---
