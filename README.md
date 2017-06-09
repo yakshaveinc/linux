@@ -1,4 +1,4 @@
-Continuous integration snippets and common tasks for devops on Linux.
+DevOps/DX for Linux. Continuous integration snippets and common tasks.
 
 [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
 
