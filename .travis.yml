@@ -1,3 +1,7 @@
+before_install:
+  - whoami
+  - echo $HOME
+  - echo $PWD
 
 install:
   # feature: json_linting, 1 line
