@@ -1,3 +1,7 @@
+services:
+  # feature: dockerhub_upload, 1 line
+  - docker
+
 before_install:
   - whoami
   - echo $HOME
@@ -10,3 +14,12 @@ install:
 script:
   # feature: json_linting, 1 line
   - find . -name "*.json" -type f -exec jsonlint -q "{}" \; -exec /bin/echo "{}" \;
+  # feature: dockerhub_upload, 3 lines
+  # build yakshaving/linux image as Ubuntu 16.04 with autoupdate
+  - docker run --name linuxcon -v `pwd`/ubuntu:/01 ubuntu:16.04 /bin/sh -c "/01/01autoupdate.sh"
+  - docker commit linuxcon yakshaveinc/linux
+
+deploy:
+  # feature: dockerhub_upload, 2 lines
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker push yakshaveinc/linux
