@@ -1,7 +1,15 @@
-DevOps/DX for Linux. Continuous integration snippets and common tasks.
+Linux DevOps snippets, recipes and services.
 
-* [ ] Adding automatic build to Linux projects through Travis - [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
+#### Elements
+
+* [x] GitHub (https://github.com/yakshaveinc/linux)
+* [x] Travis CI (https://travis-ci.org/yakshaveinc/linux)
+
+#### Ops
+
+* [x] Adding automatic builds to Linux projects through Travis - [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
 * [ ] Adding build status indicators to your development dashboard
+* [ ] Automatic image uploads from Travis CI to DockerHub
 
 ---
 * [ ] Adding static site pages through Netlify
