@@ -20,6 +20,9 @@ script:
   - docker commit linuxcon yakshaveinc/linux
 
 deploy:
-  # feature: dockerhub_upload, 2 lines
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - docker push yakshaveinc/linux
+  # feature: dockerhub_upload, 5 lines
+  - provider: script
+    script: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
+            docker push yakshaveinc/linux
+    on:
+      branch: master
