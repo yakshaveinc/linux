@@ -4,6 +4,8 @@ Linux DevOps snippets, recipes and services.
 
 * [x] GitHub (https://github.com/yakshaveinc/linux)
 * [x] Travis CI (https://travis-ci.org/yakshaveinc/linux)
+* [x] DockerHub (https://hub.docker.com/r/yakshaveinc/linux)
+  * [x] `cyberbuilder` account for automatic builds
 
 #### Ops
 
