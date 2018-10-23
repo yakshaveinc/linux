@@ -10,10 +10,10 @@ Linux DevOps snippets, recipes and services.
 #### Ops
 
 * [x] Adding automatic builds to Linux projects through Travis - [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
-* [ ] Adding build status indicators to your development dashboard
 * [ ] Automatic image uploads from Travis CI to DockerHub
 
 ---
+* [ ] Adding build status indicators to custom development dashboard
 * [ ] Adding static site pages through Netlify
   * [ ] design previews
     * [ ] Django (https://filmfest.netlify.com)
