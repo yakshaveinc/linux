@@ -10,13 +10,10 @@ Linux DevOps snippets, recipes and services.
 #### Ops
 
 * [x] Adding automatic builds to Linux projects through Travis - [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
-* [ ] Automatic image uploads from Travis CI to DockerHub
+* [x] Automatic deploy of Docker containers from Travis CI to DockerHub
 
 ---
-* [ ] Adding build status indicators to custom development dashboard
-* [ ] Adding static site pages through Netlify
-  * [ ] design previews
-    * [ ] Django (https://filmfest.netlify.com)
-  * [ ] host documentation, JAMStack sites (https://jamstack.org/)
-  * [ ] automatic deployment
-  * [ ] PR previews
+* [ ] Build status to custom development dashboard
+* [ ] PR preview web-sites with Netlify
+  * [ ] Preview Django pages as static (https://filmfest.netlify.com)
+  * [ ] See also (https://jamstack.org/)
