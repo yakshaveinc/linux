@@ -4,9 +4,10 @@ services:
 
 env:
   global:
-    # feature: dockerhub_upload, 2 lines
+    # feature: dockerhub_upload, 3 lines
     # encrypted DOCKER_USERNAME and DOCKER_PASSWORD
-    secure: qjno13B5zr+DTx+xtkkcXHxdnPQ1wtX0pDC7LVoofFSjr6xhB8AvNU4TnOiQQIZLwCwbPPN14viczsDo4E4ywnClarPp/s649p2l2JhjZ4LUVvpBGw4fmNxo4RsyEWQMNLDjHOSHdtV5bVVirjVTjH0s/5PcYYAgpxK6WDZ7Z2SrQuV33Z049wpx+/dQ2BnzeXLrbmeROUUIsGdXhiWegU7LsXOePe99a84/L45gBuVC0h34FpE5aiv5FMSI4UDwrNcAMfBGlknl6WEtfkJGyjOcB/YR+PlOy7D6zuyVWzWJMbvXEgpE6zrRvrS1rUGMDZO+GQ1dha+nswXBVCg09jll1K/D+eaPVowSD5rfs238sZsEVlf9rGNbZRBadHbV2VF4eFP/9AuE0ixg9upYygPEqwO6/d0qxTfG5UhiXcoPP7uICP17y8WOGo+mdksOjs6i6bmzc3e2IgQCRSyLTICB/5THuWDcC6Cm6wniPelGKAm3jum0getnL9Ji19veAtV1ciXPr5pFuItooTM40in5cG2Ltv90bkWVSpACzmS5ZktR95vDfgq4LaIn//7SwKo103CdoQwmO/DSK6Np18KdxeUjjoYGUThbyetuAMQKlBzdV3q+NxbaPKEXWvaDrvlGgz03qYXv1mcysZX+r3CYJhHcbVZBfYkkYrcI1Fk=
+    - secure: qjno13B5zr+DTx+xtkkcXHxdnPQ1wtX0pDC7LVoofFSjr6xhB8AvNU4TnOiQQIZLwCwbPPN14viczsDo4E4ywnClarPp/s649p2l2JhjZ4LUVvpBGw4fmNxo4RsyEWQMNLDjHOSHdtV5bVVirjVTjH0s/5PcYYAgpxK6WDZ7Z2SrQuV33Z049wpx+/dQ2BnzeXLrbmeROUUIsGdXhiWegU7LsXOePe99a84/L45gBuVC0h34FpE5aiv5FMSI4UDwrNcAMfBGlknl6WEtfkJGyjOcB/YR+PlOy7D6zuyVWzWJMbvXEgpE6zrRvrS1rUGMDZO+GQ1dha+nswXBVCg09jll1K/D+eaPVowSD5rfs238sZsEVlf9rGNbZRBadHbV2VF4eFP/9AuE0ixg9upYygPEqwO6/d0qxTfG5UhiXcoPP7uICP17y8WOGo+mdksOjs6i6bmzc3e2IgQCRSyLTICB/5THuWDcC6Cm6wniPelGKAm3jum0getnL9Ji19veAtV1ciXPr5pFuItooTM40in5cG2Ltv90bkWVSpACzmS5ZktR95vDfgq4LaIn//7SwKo103CdoQwmO/DSK6Np18KdxeUjjoYGUThbyetuAMQKlBzdV3q+NxbaPKEXWvaDrvlGgz03qYXv1mcysZX+r3CYJhHcbVZBfYkkYrcI1Fk=
+    - DOCKER_IMAGE=yakshaveinc/linux
 
 before_install:
   - whoami
@@ -23,12 +24,12 @@ script:
   # feature: dockerhub_upload, 3 lines
   # build yakshaving/linux image as Ubuntu 16.04 with autoupdate
   - docker run --name linuxcon -v `pwd`/ubuntu:/01 ubuntu:16.04 /bin/sh -c "/01/01autoupdate.sh"
-  - docker commit linuxcon yakshaveinc/linux
+  - docker commit linuxcon "$DOCKER_IMAGE"
 
 deploy:
   # feature: dockerhub_upload, 5 lines
   - provider: script
     script: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
-            docker push yakshaveinc/linux
+            docker push "$DOCKER_IMAGE"
     on:
       branch: master
