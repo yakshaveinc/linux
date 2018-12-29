@@ -9,17 +9,11 @@ channels if you need to do something from the list prvately.
 * [x] Travis CI (https://travis-ci.org/yakshaveinc/linux)
 * [x] DockerHub (https://hub.docker.com/r/yakshaveinc/linux)
   * [x] `cyberbuilder` account for automatic builds
-* [ ] Snap Store (https://snapcraft.io/)
+* [x] Snap Store (https://snapcraft.io/yakshaveinc)
 
-#### Known Ops 
+#### Mastered Operations
 
 * [x] Adding automatic builds to Linux projects through Travis - [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
 * [x] Automatic deploy of Docker containers from Travis CI to DockerHub    
       ![github->travis->dockerhub](./docops/ops-travis-dockerhub.svg)
-* [ ] Automatic build and publish from Travis CI to Snap Store
-
----
-* [ ] Build status to custom development dashboard
-* [ ] PR preview web-sites with Netlify
-  * [ ] Preview Django pages as static (https://filmfest.netlify.com)
-  * [ ] See also (https://jamstack.org/)
+* [x] Automatic build and publish from Travis CI to Snap Store
