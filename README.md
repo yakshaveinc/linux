@@ -10,8 +10,8 @@ Linux DevOps snippets, recipes and services.
 #### Ops
 
 * [x] Adding automatic builds to Linux projects through Travis - [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
-* [x] Automatic deploy of Docker containers from Travis CI to DockerHub
-      ![github->travis->dockerhub](./docops/ops-travis-dockerhub.png)
+* [x] Automatic deploy of Docker containers from Travis CI to DockerHub    
+      ![github->travis->dockerhub](./docops/ops-travis-dockerhub.svg)
 
 ---
 * [ ] Build status to custom development dashboard
