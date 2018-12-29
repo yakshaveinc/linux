@@ -1,0 +1,11 @@
+name: yakshaveinc
+version: eternal
+summary: minimal snap that builds
+description: |
+  an artifact that is delivered through the pipeline
+  [ GitHub ]->- [ Travis CI ]->- [ Snap Store ]
+
+parts:
+  yakshaveinc:
+    plugin: nil
+

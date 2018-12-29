@@ -1,3 +1,12 @@
+# feature: snapcrafting, 1 line
+dist: xenial
+
+addons:
+  apt:
+    packages:
+      # feature: snapcrafting, 1 line
+      - snapcraft
+
 services:
   # feature: dockerhub_upload, 1 line
   - docker
@@ -25,6 +34,9 @@ script:
   # build yakshaving/linux image as Ubuntu 16.04 with autoupdate
   - docker run --name linuxcon -v `pwd`/ubuntu:/01 ubuntu:16.04 /bin/sh -c "/01/01autoupdate.sh"
   - docker commit linuxcon "$DOCKER_IMAGE"
+  # feature: snapcrafting, 1 line
+  - snapcraft
+
 
 deploy:
   # feature: dockerhub_upload, 5 lines
@@ -33,3 +45,9 @@ deploy:
             docker push "$DOCKER_IMAGE"
     on:
       branch: master
+
+  # feature: snapcrafting, 4 lines
+  - provider: snap
+    snap: yakshaveinc*.snap
+    channel: stable
+    skip_cleanup: true
