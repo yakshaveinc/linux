@@ -1,7 +1,6 @@
-Here is an example repository for all Yak Shave Inc. operations
-that we know and can do. Copy/paste code yourself, or open an issue
-to help you. @abitrolly is occassionally available through many
-channels if you need to do something from the list prvately.
+Yak Shave Inc. operations. Copy/paste code yourself, open an issue,
+or reach @abitrolly through https://t.me/abitrolly for support
+requests or project offers that require this expertise.
 
 #### Known Elements
 
@@ -17,3 +16,5 @@ channels if you need to do something from the list prvately.
 * [x] Automatic deploy of Docker containers from Travis CI to DockerHub    
       ![github->travis->dockerhub](./docops/ops-travis-dockerhub.svg)
 * [x] Automatic build and publish from Travis CI to Snap Store
+  * https://snapcraft.io/yakshaveinc (@abitrolly)
+  * https://snapcraft.io/gitless (@techtonik, @abitrolly)
