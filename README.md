@@ -13,8 +13,9 @@ requests or project offers that require this expertise.
 #### Mastered Operations
 
 * [x] Adding automatic builds to Linux projects through Travis - [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
-* [x] Automatic deploy of Docker containers from Travis CI to DockerHub    
+* [x] Automatic deploy of Docker containers from Travis CI to DockerHub  
       ![github->travis->dockerhub](./docops/ops-travis-dockerhub.svg)
-* [x] Automatic build and publish from Travis CI to Snap Store
+* [x] Automatic build and publish from Travis CI to Snap Store  
+      ![github->travis->dockerhub](./docops/ops-travis-snapcraft.svg)
   * https://snapcraft.io/yakshaveinc (@abitrolly)
   * https://snapcraft.io/gitless (@techtonik, @abitrolly)
