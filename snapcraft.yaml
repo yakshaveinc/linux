@@ -1,5 +1,6 @@
 name: yakshaveinc
 version: eternal
+license: Unlicense
 summary: minimal snap that builds
 description: |
   an artifact that is delivered through the pipeline
