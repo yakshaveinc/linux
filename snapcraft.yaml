@@ -6,6 +6,8 @@ description: |
   an artifact that is delivered through the pipeline
   [ GitHub ]->- [ Travis CI ]->- [ Snap Store ]
 
+base: core18
+
 parts:
   yakshaveinc:
     plugin: nil
