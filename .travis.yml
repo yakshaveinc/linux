@@ -1,3 +1,5 @@
+language: bash
+
 # feature: snapcrafting, 1 line
 dist: xenial
 
