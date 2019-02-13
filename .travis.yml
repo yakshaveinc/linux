@@ -3,8 +3,9 @@ dist: xenial
 
 addons:
   snaps:
-    # feature: snapcrafting, 1 line
+    # feature: snapcrafting, 2 lines
     - snapcraft
+      classic: true
 
 services:
   # feature: dockerhub_upload, 1 line
