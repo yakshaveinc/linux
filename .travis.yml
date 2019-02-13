@@ -2,10 +2,9 @@
 dist: xenial
 
 addons:
-  apt:
-    packages:
-      # feature: snapcrafting, 1 line
-      - snapcraft
+  snaps:
+    # feature: snapcrafting, 1 line
+    - snapcraft
 
 services:
   # feature: dockerhub_upload, 1 line
