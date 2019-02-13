@@ -6,9 +6,12 @@ dist: xenial
 
 addons:
   snaps:
-    # feature: snapcrafting, 2 lines
+    # feature: snapcrafting, 5 lines
     - name: snapcraft
       classic: true
+    - name: multipass
+      classic: true
+      channel: beta
 
 services:
   # feature: dockerhub_upload, 1 line
