@@ -1,4 +1,5 @@
-language: bash
+# feature: json_linting, 1 line
+language: node_js
 
 # feature: snapcrafting, 1 line
 dist: xenial
