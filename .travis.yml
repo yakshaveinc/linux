@@ -6,7 +6,7 @@ dist: xenial
 addons:
   snaps:
     # feature: snapcrafting, 2 lines
-    - snapcraft
+    - name: snapcraft
       classic: true
 
 services:
