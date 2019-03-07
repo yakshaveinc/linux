@@ -6,7 +6,7 @@
 # LISTEN    0         32            192.168.42.1:53            0.0.0.0:*     users:(("dnsmasq",pid=1191,fd=6))                                        
 # LISTEN    0         32           192.168.122.1:53            0.0.0.0:*     users:(("dnsmasq",pid=1169,fd=6))                                        
 
-sudo ss --listening --tcp --processes --numeric --no-header
+ss --listening --tcp --processes --numeric --no-header
 
 # [ ] strip first three columns and the column before the last
 # [ ] keep indentation of 4th column intact
