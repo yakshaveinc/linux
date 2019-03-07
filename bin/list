@@ -5,7 +5,7 @@
 # [ ] find all list-*.sh scripts
 # [ ] parse command to match 
 
-if $1 != "open" or $2 != "ports":
+if [ "$1" != "open" ] || [ "$2" != "ports" ]; then
   echo "usage: list open ports"
   ./list-open-ports.sh
-
+fi
