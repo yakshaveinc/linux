@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Wrapper for running list-open-ports.sh script as `list open ports`
+
+# [ ] find all list-*.sh scripts
+# [ ] parse command to match 
+
+if $1 != "open" or $2 != "ports":
+  echo "usage: list open ports"
+  ./list-open-ports.sh
+
