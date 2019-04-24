@@ -42,7 +42,7 @@ script:
   - docker commit linuxcon "$DOCKER_IMAGE"
   # feature: snapcrafting, 2 lines
   - snapcraft version
-  - snapcraft
+  - snapcraft --use-lxd
 
 
 deploy:
