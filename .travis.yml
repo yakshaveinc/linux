@@ -40,7 +40,8 @@ script:
   # build yakshaving/linux image as Ubuntu 16.04 with autoupdate
   - docker run --name linuxcon -v `pwd`/ubuntu:/01 ubuntu:16.04 /bin/sh -c "/01/01autoupdate.sh"
   - docker commit linuxcon "$DOCKER_IMAGE"
-  # feature: snapcrafting, 1 line
+  # feature: snapcrafting, 2 lines
+  - snapcraft version
   - snapcraft
 
 
