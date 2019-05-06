@@ -1,2 +1,6 @@
+container:
+  # run all tasks on Ubuntu
+  image: ubuntu:19.04
+
 snapcraft_task:
   echo_script: docker --version
