@@ -1,6 +1,10 @@
 docker_builder:
+  env:
+    DOCKER_USERNAME: ENCRYPTED[89bc5b18538c2260d2840aa63a69b21ea4f247085793e6ddfc2270629b4f615b684dfca53a5f5debcabbe1b4f6d8b965]
+    DOCKER_PASSWORD: ENCRYPTED[5d5ec522913fd2c5b6dda34b044cdb55f01aae995150a98eba8a040a83126eb2e4b3e76209316aa3fe0af7ef8e4388ef]
   clone_script: git clone --depth=100 https://github.com/snapcore/snapcraft .
   # rewrite xenial (16.04) to bionic (18.04), which is also core18 base
   rewrite_script: sed -i 's/xenial/bionic/g' docker/edge.Dockerfile && echo docker/edge.Dockerfile
   build_script: docker build -t core18:edge -f docker/edge.Dockerfile docker
   snap_script: docker run core18:edge snapcraft --version
+  login_script: docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
