@@ -4,5 +4,6 @@ container:
 
 snapcraft_task:
   install_script: apt-get update && apt-get -y install docker.io tree
-  clone_script: git clone --depth=100 https://github.com/snapcore/snapcraft && cd snapcraft
+  # clone to current directory
+  clone_script: git clone --depth=100 https://github.com/snapcore/snapcraft .
   build_script: tree
