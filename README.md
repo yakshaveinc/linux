@@ -7,12 +7,14 @@ requests or project offers that require this expertise.
 * [x] GitHub (https://github.com/yakshaveinc/linux)
 * [x] Travis CI (https://travis-ci.org/yakshaveinc/linux)
 * [x] DockerHub (https://hub.docker.com/r/yakshaveinc/linux)
-  * [x] `cyberbuilder` account for automatic builds
+  * [x] `yeesus` account for automatic builds
 * [x] Snap Store (https://snapcraft.io/yakshaveinc)
+* [x] CirrusCI (https://cirrus-ci.com/github/yakshaveinc/linux)
 
 #### Mastered Operations
 
 * [x] Adding automatic builds to Linux projects through Travis - [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
+* [x] Adding automatic builds through CirrusCI - [![CirrusCI](https://api.cirrus-ci.com/github/yakshaveinc/linux.svg)](https://cirrus-ci.com/github/yakshaveinc/linux)
 * [x] Automatic deploy of Docker containers from Travis CI to DockerHub  
       ![github->travis->dockerhub](./docops/ops-travis-dockerhub.svg)
 * [x] Automatic build and publish from Travis CI to Snap Store  
