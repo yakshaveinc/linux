@@ -1,0 +1,2 @@
+snapcraft_task:
+  echo_script: docker --version
