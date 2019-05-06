@@ -4,13 +4,6 @@ language: node_js
 # feature: snapcrafting, 1 line
 dist: xenial
 
-addons:
-  snaps:
-    # feature: snapcrafting, 3 lines
-    - name: snapcraft
-      classic: true
-    - name: lxd
-
 services:
   # feature: dockerhub_upload, 1 line
   - docker
@@ -38,10 +31,9 @@ script:
   # build yakshaving/linux image as Ubuntu 16.04 with autoupdate
   - docker run --name linuxcon -v `pwd`/ubuntu:/01 ubuntu:16.04 /bin/sh -c "/01/01autoupdate.sh"
   - docker commit linuxcon "$DOCKER_IMAGE"
-  # feature: snapcrafting, 3 lines
-  - snapcraft version
-  - lxd.migrate   # i don't know what i am doing
-  - snapcraft --use-lxd
+  # feature: snapcrafting, 2 lines
+  - docker run yakshaveinc/snapcraft:core18-edge snapcraft version
+  - docker run -v $PWD:/src:Z -w /src yakshaveinc/snapcraft:core18-edge snapcraft
 
 
 deploy:
