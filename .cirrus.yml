@@ -6,4 +6,6 @@ snapcraft_task:
   install_script: apt-get update && apt-get -y install docker.io tree
   # clone to current directory
   clone_script: git clone --depth=100 https://github.com/snapcore/snapcraft .
-  build_script: tree
+  # rewrite xenial (16.04) to bionic (18.04), which is also core18 base
+  rewrite_script: sed -i 's/xenial/bionic/g' docker/edge.Dockerfile
+  build_script: docker build -f docker/edge.Dockerfile docker
