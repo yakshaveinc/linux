@@ -6,7 +6,7 @@ requests or project offers that require this expertise.
 
 * [x] GitHub (https://github.com/yakshaveinc/linux)
 * [x] Travis CI (https://travis-ci.org/yakshaveinc/linux)
-* [x] DockerHub (https://hub.docker.com/r/yakshaveinc/linux)
+* [x] DockerHub (https://hub.docker.com/r/yakshaveinc)
   * [x] `yeesus` account for automatic builds
 * [x] Snap Store (https://snapcraft.io/yakshaveinc)
 * [x] CirrusCI (https://cirrus-ci.com/github/yakshaveinc/linux)
