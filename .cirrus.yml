@@ -8,5 +8,5 @@ docker_builder:
   rewrite_script: sed -i 's/xenial/bionic/g' docker/edge.Dockerfile && echo docker/edge.Dockerfile
   build_script: docker build -t $TAG -f docker/edge.Dockerfile docker
   snap_script: docker run $TAG snapcraft --version
-  login_script: docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
-  push_script: docker push $TAG
+  login_script: [ "$CIRRUS_BRANCH" == "master" ] && docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+  push_script: [ "$CIRRUS_BRANCH" == "master" ] && docker push $TAG
