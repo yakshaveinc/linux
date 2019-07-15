@@ -8,5 +8,9 @@ docker_builder:
   rewrite_script: sed -i 's/xenial/bionic/g' docker/edge.Dockerfile && echo docker/edge.Dockerfile
   build_script: docker build -t $TAG -f docker/edge.Dockerfile docker
   snap_script: docker run $TAG snapcraft --version
-  login_script: '[ "$CIRRUS_BRANCH" == "master" ] && docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD'
-  push_script: '[ "$CIRRUS_BRANCH" == "master" ] && docker push $TAG'
+  deploy_script: |
+    # deplot is run only against master branch, because variables are not decrypted for read-only PR senders (for security)
+    if [ "$CIRRUS_BRANCH" == "master" ]; then
+      docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+      docker push $TAG
+    fi
