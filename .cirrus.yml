@@ -9,7 +9,7 @@ docker_builder:
   build_script: docker build -t $TAG -f docker/edge.Dockerfile docker
   snap_script: docker run $TAG snapcraft --version
   deploy_script: |
-    # deplot is run only against master branch, because variables are not decrypted for read-only PR senders (for security)
+    # deploy is run only against master branch, because variables are not decrypted for read-only PR senders (for security)
     if [ "$CIRRUS_BRANCH" == "master" ]; then
       docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
       docker push $TAG
