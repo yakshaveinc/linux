@@ -13,7 +13,7 @@ docker_builder:
     # rewrite xenial (16.04) to bionic (18.04) for core18 base
     sed -i 's/xenial/bionic/g' docker/stable.Dockerfile
 
-    echo "\n# Help detect podman container" >> docker/stable.Dockerfile
+    echo -e "\n# Help detect podman container" >> docker/stable.Dockerfile
     echo "RUN touch /.dockerenv" >> docker/stable.Dockerfile
     
     echo docker/stable.Dockerfile
