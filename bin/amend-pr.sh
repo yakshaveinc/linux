@@ -53,6 +53,9 @@ cd $SRCDIR
 #git checkout pr-$PR
 git checkout $BRANCH
 
+green "..Adding upstream remote.."
+git remote add upstream $REPO
+
 green "Run 'exit $PR' to commit and push changes."
 PS1="$SRCDIR ($BRANCH)$ " bash
 RET=$?
