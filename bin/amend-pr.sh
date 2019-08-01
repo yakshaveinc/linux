@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 
-# usage: amend-pr.sh <url>
-#
-# example url https://github.com/hyperledger/fabric/pull/244
-#
-# untested and most likely doesn't work on:
-# - PR in the same repo
-# - PR in renamed repo
+USAGE="\
+usage: amend-pr.sh <url>
+
+example url https://github.com/hyperledger/fabric/pull/244
+
+untested and most likely doesn't work on:
+- PR in the same repo
+- PR in renamed repo
+"
+
+if [[ $# -eq 0 ]]; then
+  echo "${USAGE}"
+  exit 1
+fi
+
 
 PR=$(basename $1)
 SRCDIR=/tmp/amend-pr-$PR
