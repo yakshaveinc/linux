@@ -13,7 +13,15 @@ SRCDIR=/tmp/amend-pr-$PR
 REPO=$(dirname $(dirname $1))
 PROJECT=$(basename $REPO)
 
-echo "..Getting username and branch for pushing.."
+green() {
+  declare arg1="$1"
+
+  GREEN='\033[0;32m'
+  NC='\033[0m'        # no color
+  echo -e "${GREEN}$arg1${NC}"
+}
+
+green "..Getting username and branch for pushing.."
 
 # value="abitrolly:patch-1" aria-label="Copied!"><sv
 # -o, --only-matching
@@ -23,13 +31,13 @@ echo "..Getting username and branch for pushing.."
 # -S - but show errors
 NAMEBRANCH=$(curl -sS $1 | grep -oP '(?<=value=").+?(?=" aria-label="Copied!)' | head -1)
 # abitrolly:patch-1
-echo $NAMEBRANCH
+green $NAMEBRANCH
 # https://stackoverflow.com/questions/19482123/extract-part-of-a-string-using-bash-cut-split
 NAME=${NAMEBRANCH%:*}    # remove :* from the end
 BRANCH=${NAMEBRANCH#*:}  # remove *: from the beginning
 
 RWREPO=git@github.com:$NAME/$PROJECT
-echo "..Cloning $RWREPO.."
+green "..Cloning $RWREPO.."
 
 git clone $RWREPO $SRCDIR
 cd $SRCDIR
@@ -37,11 +45,11 @@ cd $SRCDIR
 #git checkout pr-$PR
 git checkout $BRANCH
 
-echo "Run 'exit $PR' to commit and push changes."
+green "Run 'exit $PR' to commit and push changes."
 PS1="$SRCDIR ($BRANCH)$ " bash
 RET=$?
 if [[ $RET == $PR ]]; then
-  echo "Good! Pushing the PR"
+  green "Good! Pushing the PR"
   git push -f
 fi
 
