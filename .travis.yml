@@ -28,6 +28,8 @@ install:
 script:
   # feature: json_linting, 1 line
   - find . -name "*.json" -type f -exec jsonlint -q "{}" \; -exec /bin/echo "{}" \;
+  # feature: bash_linting, 1 line
+  - bash -c 'shopt -s globstar; shellcheck **/*.{sh,ksh,bash}'
   # feature: dockerhub_upload, 3 lines
   # build yakshaving/linux image as Ubuntu 16.04 with autoupdate
   - docker run --name linuxcon -v `pwd`/ubuntu:/01 ubuntu:16.04 /bin/sh -c "/01/01autoupdate.sh"
