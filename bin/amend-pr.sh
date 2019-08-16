@@ -56,11 +56,21 @@ git checkout $BRANCH
 green "..Adding upstream remote.."
 git remote add upstream $REPO
 
-green "Run 'exit $PR' to commit and push changes."
+# using PR number as en exit code to confirm push
+# exit codes can not be greater than 255
+ACK=$PR
+if [[ $PR > 255 ]]; then
+  # taking modulo
+  ACK=$(($PR % 255))
+fi
+
+green "Run 'exit $ACK' to commit and force push changes."
 PS1="$SRCDIR ($BRANCH)$ " bash
 RET=$?
-if [[ $RET == $PR ]]; then
+if [[ $RET == $ACK ]]; then
   green "Good! Pushing the PR"
   git push -f
+else
+  green "$RET != $ACK. Not pushing."
 fi
 
