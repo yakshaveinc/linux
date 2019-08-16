@@ -16,10 +16,10 @@ if [[ $# -eq 0 ]]; then
 fi
 
 
-PR=$(basename $1)
+PR=$(basename "$1")
 SRCDIR=/tmp/amend-pr-$PR
-REPO=$(dirname $(dirname $1))
-PROJECT=$(basename $REPO)
+REPO=$(dirname $(dirname "$1"))
+PROJECT=$(basename "$REPO")
 
 green() {
   declare arg1="$1"
@@ -37,9 +37,9 @@ green "..Getting username and branch for pushing.."
 # https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match
 # -s - be silent
 # -S - but show errors
-NAMEBRANCH=$(curl -sS $1 | grep -oP '(?<=value=").+?(?=" aria-label="Copied!)' | head -1)
+NAMEBRANCH=$(curl -sS "$1" | grep -oP '(?<=value=").+?(?=" aria-label="Copied!)' | head -1)
 # abitrolly:patch-1
-green $NAMEBRANCH
+green "$NAMEBRANCH"
 # https://stackoverflow.com/questions/19482123/extract-part-of-a-string-using-bash-cut-split
 NAME=${NAMEBRANCH%:*}    # remove :* from the end
 BRANCH=${NAMEBRANCH#*:}  # remove *: from the beginning
@@ -47,14 +47,14 @@ BRANCH=${NAMEBRANCH#*:}  # remove *: from the beginning
 RWREPO=git@github.com:$NAME/$PROJECT
 green "..Cloning $RWREPO.."
 
-git clone $RWREPO $SRCDIR
-cd $SRCDIR
+git clone "$RWREPO" "$SRCDIR"
+cd "$SRCDIR"
 #git fetch origin pull/$PR/head:pr-$PR
 #git checkout pr-$PR
-git checkout $BRANCH
+git checkout "$BRANCH"
 
 green "..Adding upstream remote.."
-git remote add upstream $REPO
+git remote add upstream "$REPO"
 
 # using PR number as en exit code to confirm push
 # exit codes can not be greater than 255
