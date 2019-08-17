@@ -48,7 +48,7 @@ RWREPO=git@github.com:$NAME/$PROJECT
 green "..Cloning $RWREPO.."
 
 git clone "$RWREPO" "$SRCDIR"
-cd "$SRCDIR"
+cd "$SRCDIR" || exit
 #git fetch origin pull/$PR/head:pr-$PR
 #git checkout pr-$PR
 git checkout "$BRANCH"
@@ -72,7 +72,7 @@ fi
 green "Run 'exit $ACK' to commit and force push changes."
 PS1="$SRCDIR ($BRANCH)$ " bash
 RET=$?
-if [[ $RET == $ACK ]]; then
+if (( RET == ACK )); then
   green "Good! Pushing the PR"
   git push -f
 else
