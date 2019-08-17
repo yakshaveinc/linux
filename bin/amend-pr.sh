@@ -18,7 +18,7 @@ fi
 
 PR=$(basename "$1")
 SRCDIR=/tmp/amend-pr-$PR
-REPO=$(dirname $(dirname "$1"))
+REPO=$(dirname "$(dirname "$1")")
 PROJECT=$(basename "$REPO")
 
 green() {
@@ -59,9 +59,9 @@ git remote add upstream "$REPO"
 # using PR number as en exit code to confirm push
 # exit codes can not be greater than 255
 ACK=$PR
-if [[ $PR > 255 ]]; then
+if (( $PR > 255 )); then
   # taking modulo
-  ACK=$(($PR % 255))
+  ACK=$((PR % 255))
 fi
 
 green "Run 'exit $ACK' to commit and force push changes."
