@@ -56,12 +56,17 @@ git checkout "$BRANCH"
 green "..Adding upstream remote.."
 git remote add upstream "$REPO"
 
-# using PR number as en exit code to confirm push
-# exit codes can not be greater than 255
+# ACK is an exit code used to confirm force push. it is derived from PR number
+# by taking modulo, because exit codes can not be greater than 255
 ACK=$PR
-if (( $PR > 255 )); then
+if (( PR > 256 )); then
   # taking modulo
-  ACK=$((PR % 255))
+  ACK=$(( PR % 256 ))
+  if (( ACK == 0 )); then
+    # 0 exit code also means user logged out normally. setting ACK to non-zero
+    # value to avoid commit by mistake
+    ACK=42
+  fi
 fi
 
 green "Run 'exit $ACK' to commit and force push changes."
