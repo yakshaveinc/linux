@@ -1,8 +1,8 @@
 # feature: json_linting, 1 line
-language: node_js
+#language: node_js
 
 # feature: snapcrafting, 1 line
-dist: xenial
+dist: bionic
 
 services:
   # feature: dockerhub_upload, 1 line
