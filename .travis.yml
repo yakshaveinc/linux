@@ -13,39 +13,48 @@ env:
     - secure: xc5vP+LjpNnZgMIfXUUeP3EBGhhNoDV5vTfophBliaWZrBX8POpLOFQGZ/Fcd0i+UBmSckLYW30BLSwHwjYLAZJGM12AfeiKbI1eub5tNfsosI2FZ3lNeb2nlpoIjzpsyS5fknJL0zQfkadUgxbrwDRDuaN+P6oOup3XMgHR9hkjb/QwVW2ozxU+OP4iRvcNECLP+XqnsOyq0YFshZzRMOd6fVYnJZuP6NTj24hCfymcmZJlS8Q5dSHISg68Lckaa/z3APxrMW+5/PORsHZ/U8yugNQr6Ty5J3YoaEuUoaMaUkGpaiuP26/lndynlRhNVlw8zQKfb7A09oom/UjnhyLE+9NuhKpo7f3l56OP/ubIvJzkrGt0hqwKnW2+EixURLxAOL7shtc/9gl8q2cPwEJg50siIRGJXkUEear/oqYr/EqEk1/6kq3dOfaDM0kRYAeHi8Kuf4+tyTbKQDULT3xYMi3ZxAYTd8gEMGsWca+PT/+IfFB4sHADmFmh6Y9VhI89Zrsrqa7C2BlS/ytuiAJHgrleKxyYKEFy78yG5Tb/AGi2UmGFMk8ShKRNrK8VJmrqixWttvyUr81iBI5uEP9copsXDnR5aZaFZF5vBi7PK85Ngwj6uREM+rjQadaPR49KQqUXFj0s3OXbwDXgMFIXAguqsji/nm4IuEeA8zA=
     - DOCKER_IMAGE=yakshaveinc/linux
 
+
+### default steps, common for each job
+
 before_install:
-  - whoami
-  - echo $HOME
-  - echo $PWD
+  - whoami && echo $HOME && echo $PWD
 
-install:
-  # feature: json_linting, 1 line
-  - npm install jsonlint -g
+### defined jobs
 
-script:
-  # feature: json_linting, 1 line
-  - find . -name "*.json" -type f -exec jsonlint -q "{}" \; -exec /bin/echo "{}" \;
-  # feature: bash_linting, 1 line
-  - bash -c 'shopt -s globstar nullglob; shellcheck **/*.{sh,ksh,bash}'
-  # feature: dockerhub_upload, 3 lines
-  # build yakshaving/linux image as Ubuntu 16.04 with autoupdate
-  - docker run --name linuxcon -v `pwd`/ubuntu:/01 ubuntu:16.04 /bin/sh -c "/01/01autoupdate.sh"
-  - docker commit linuxcon "$DOCKER_IMAGE"
-  # feature: snapcrafting, 2 lines
-  - docker run yakshaveinc/snapcraft:core18-edge snapcraft version
-  - docker run -v $PWD:/src:Z -w /src yakshaveinc/snapcraft:core18-edge snapcraft
+jobs:
+  include:
+    # feature: json_linting, 5 lines
+    - name: check JSON
+      install:
+        - npm install jsonlint -g
+      script:
+        - find . -name "*.json" -type f -exec jsonlint -q "{}" \; -exec /bin/echo "{}" \;
 
+    # feature: bash_linting, 3 lines
+    - name: check shell scripts
+      script:
+        - bash -c 'shopt -s globstar nullglob; shellcheck **/*.{sh,ksh,bash}'
 
-deploy:
-  # feature: dockerhub_upload, 5 lines
-  - provider: script
-    script: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
-            docker push "$DOCKER_IMAGE"
-    on:
-      branch: master
+    # feature: dockerhub_upload, 10 lines
+    - name: yakshaving/linux docker image as Ubuntu 18.04 with autoupdate
+      script:
+        - docker run --name linuxcon -v `pwd`/ubuntu:/01 ubuntu:18.04 /bin/sh -c "/01/01autoupdate.sh"
+        - docker commit linuxcon "$DOCKER_IMAGE"
+      deploy:
+        - provider: script
+          script: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
+                  docker push "$DOCKER_IMAGE"
+          on:
+            branch: master
 
-  # feature: snapcrafting, 4 lines
-  - provider: snap
-    snap: yakshaveinc*.snap
-    channel: stable
-    skip_cleanup: true
+    # feature: snapcrafting, 10 lines
+    - name: build and deploy yakshaveinc snap
+      script:
+        # test custom snapcraft image based on Ubuntu 18.04
+        - docker run yakshaveinc/snapcraft:core18-edge snapcraft version
+        - docker run -v $PWD:/src:Z -w /src yakshaveinc/snapcraft:core18-edge snapcraft
+      deploy:
+        - provider: snap
+          snap: yakshaveinc*.snap
+          channel: stable
+          skip_cleanup: true
