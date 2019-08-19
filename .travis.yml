@@ -1,12 +1,7 @@
-# feature: json_linting, 1 line
-#language: node_js
 
-# feature: snapcrafting, 1 line
-dist: bionic
+dist: bionic  # Ubuntu 18.04 LTS
 
-services:
-  # feature: dockerhub_upload, 1 line
-  - docker
+language: minimal
 
 env:
   global:
