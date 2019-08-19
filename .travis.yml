@@ -1,7 +1,9 @@
 
-dist: bionic  # Ubuntu 18.04 LTS
+# Ubuntu 18.04 LTS
+dist: bionic
 
-language: minimal
+# https://docs.travis-ci.com/user/languages/minimal-and-generic/
+language: generic
 
 env:
   global:
