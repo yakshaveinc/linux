@@ -7,14 +7,14 @@ NAME=$(basename "$PWD")
 ID=$(grep -oP '(?<=^ID=).+' /etc/os-release | tr -d '"')
 VERSION=$(grep -oP '(?<=^VERSION_ID=).+' /etc/os-release | tr -d '"')
 
-OSTORUN="$ID:$VERSION"
+OSTORUN="$ID/$VERSION"
 
 if lxc info "$NAME" &> /dev/null
 then
   echo "Running existing container '$NAME'"
 else
   echo "Creating container '$NAME' ($OSTORUN)"
-  lxc launch "$OSTORUN" "$NAME"
+  lxc launch "images:$OSTORUN" "$NAME"
   lxc config device add "$NAME" "$NAME-shared" disk source="$PWD" path="/root/$NAME"
 fi
 
