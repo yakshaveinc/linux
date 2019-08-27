@@ -50,9 +50,9 @@ jobs:
     # feature: snapcrafting, 10 lines
     - name: build and deploy yakshaveinc snap
       script:
-        # test custom snapcraft image based on Ubuntu 18.04
-        - docker run yakshaveinc/snapcraft:core18-edge snapcraft version
-        - docker run -v $PWD:/src:Z -w /src yakshaveinc/snapcraft:core18-edge snapcraft
+        # use custom snapcraft image based on Ubuntu 18.04
+        - docker run yakshaveinc/snapcraft:core18 snapcraft version
+        - docker run -v $PWD:/src:Z -w /src yakshaveinc/snapcraft:core18 snapcraft
       deploy:
         - provider: snap
           snap: yakshaveinc*.snap
