@@ -55,6 +55,7 @@ git checkout "$BRANCH"
 
 green "..Adding upstream remote.."
 git remote add upstream "$REPO"
+git fetch upstream master
 
 # ACK is an exit code used to confirm force push. it is derived from PR number
 # by taking modulo, because exit codes can not be greater than 255
