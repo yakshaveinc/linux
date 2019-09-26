@@ -47,7 +47,7 @@ green "..Getting username and branch for pushing.."
 # https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match
 # -s - be silent
 # -S - but show errors
-NAMEBRANCH=$(curl -sS "$1" | grep -oP '(?<=value=").+?(?=" aria-label="Copied!)' | head -1)
+NAMEBRANCH=$(curl -sS "$1" | grep -oP '(?<=value=").+?(?=" aria-label="Copy)' | head -1)
 # abitrolly:patch-1
 if [[ $NAMEBRANCH ]]; then
   green "$NAMEBRANCH"
