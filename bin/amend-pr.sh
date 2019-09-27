@@ -53,7 +53,7 @@ if [[ $NAMEBRANCH ]]; then
   green "$NAMEBRANCH"
 else
   red "ERROR: can't parse branch name from GitHub markup"
-  exit -1
+  exit 255
 fi
 # https://stackoverflow.com/questions/19482123/extract-part-of-a-string-using-bash-cut-split
 NAME=${NAMEBRANCH%:*}    # remove :* from the end
