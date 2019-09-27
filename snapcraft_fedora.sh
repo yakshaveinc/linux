@@ -4,5 +4,5 @@
 set -o xtrace
 
 # calling snapcraft interactively from container without installing
-podman run -it -v $PWD:/src:z -w /src snapcore/snapcraft:beta snapcraft "$@"
+podman run -it -v $PWD:/src:Z -w /src yakshaveinc/snapcraft:core18 snapcraft "$@"
 
