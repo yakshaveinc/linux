@@ -1,15 +1,29 @@
-name: yakshaveinc
-version: eternal
+name: ysi
+version: '1901'
 license: Unlicense
-summary: minimal empty snap that builds
+summary: helper scripts and open source delivery pipeline
 description: |
-  empty artifact delivered through the pipeline
+  this snap is delivered through the pipeline
   [ GitHub ]->- [ Travis CI ]->- [ Snap Store ]
+
+  and packs scripts from https://github.com/yakshaveinc/linux
+
+  * amend-pr <url>  - quickly checkout and edit GitHub PR
+  * list            - type `list open ports` to list them
+  * lxd-runin       - work with current dir from LXD container
 
 base: core24
 confinement: strict
 
-parts:
-  yakshaveinc:
-    plugin: nil
+apps:
+  amend-pr:
+    command: amend-pr.sh
+  list:
+    command: list
+  lxd-runin:
+    command: lxd-runin.sh
 
+parts:
+  ysi:
+    plugin: dump
+    source: bin
