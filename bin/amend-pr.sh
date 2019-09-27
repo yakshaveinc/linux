@@ -21,13 +21,23 @@ SRCDIR=/tmp/amend-pr-$PR
 REPO=$(dirname "$(dirname "$1")")
 PROJECT=$(basename "$REPO")
 
+
+# -- echo helpers
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'        # no color
+
 green() {
   declare arg1="$1"
-
-  GREEN='\033[0;32m'
-  NC='\033[0m'        # no color
   echo -e "${GREEN}$arg1${NC}"
 }
+
+red() {
+  declare arg1="$1"
+  echo -e "${RED}$arg1${NC}"
+}
+# /- echo helpers
+
 
 green "..Getting username and branch for pushing.."
 
@@ -39,7 +49,12 @@ green "..Getting username and branch for pushing.."
 # -S - but show errors
 NAMEBRANCH=$(curl -sS "$1" | grep -oP '(?<=value=").+?(?=" aria-label="Copied!)' | head -1)
 # abitrolly:patch-1
-green "$NAMEBRANCH"
+if [[ $NAMEBRANCH ]]; then
+  green "$NAMEBRANCH"
+else
+  red "ERROR: can't parse branch name from GitHub markup"
+  exit -1
+fi
 # https://stackoverflow.com/questions/19482123/extract-part-of-a-string-using-bash-cut-split
 NAME=${NAMEBRANCH%:*}    # remove :* from the end
 BRANCH=${NAMEBRANCH#*:}  # remove *: from the beginning
