@@ -25,6 +25,7 @@ PROJECT=$(basename "$REPO")
 # -- echo helpers
 GREEN='\033[0;32m'
 RED='\033[0;31m'
+YELLOW='\033[0;33m'
 NC='\033[0m'        # no color
 
 green() {
@@ -35,6 +36,11 @@ green() {
 red() {
   declare arg1="$1"
   echo -e "${RED}$arg1${NC}"
+}
+
+yellow() {
+  declare arg1="$1"
+  echo -e "${YELLOW}$arg1${NC}"
 }
 # /- echo helpers
 
@@ -50,7 +56,7 @@ green "..Getting username and branch for pushing.."
 NAMEBRANCH=$(curl -sS "$1" | grep -oP '(?<=value=").+?(?=" aria-label="Copy)' | head -1)
 # abitrolly:patch-1
 if [[ $NAMEBRANCH ]]; then
-  green "$NAMEBRANCH"
+  yellow "$NAMEBRANCH"
 else
   red "ERROR: can't parse branch name from GitHub markup"
   exit 255
