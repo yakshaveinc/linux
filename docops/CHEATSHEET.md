@@ -7,6 +7,10 @@
 ```
 (export TFURL=$(curl -s https://www.terraform.io/downloads.html | grep -o -E "https://.+?_linux_amd64.zip"); echo "Fetching $TFURL"; curl -sSL "$TFURL" > terraform.zip && unzip terraform.zip)  # latest Terraform
 ```
+### Download and unpack latest Serf (or any other Hashicorp utility)
+```
+(export APP=serf; export ZIP=${APP}.zip; export URL=$(curl -s https://www.${APP}.io/downloads.html | grep -o -E "https://.+?_linux_amd64.zip"); echo "Fetching $URL"; curl -sSL "$URL" > ${ZIP} && unzip ${ZIP} && rm ${ZIP})  # latest Serf
+```
 
 ### Update `webhook` in `/usr/local/bin` to latest version
 ```
