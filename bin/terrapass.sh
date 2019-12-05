@@ -7,11 +7,13 @@
 PASTOR=$HOME/.password-store
 
 [[ -a $PASTOR/terraform/digitalocean.gpg ]] && \
-  export DIGITALOCEAN_TOKEN=$(pass terraform/digitalocean) && \
+  DIGITALOCEAN_TOKEN=$(pass terraform/digitalocean) && \
+  export DIGITALOCEAN_TOKEN && \
   echo "exported DIGITALOCEAN_TOKEN"
 
 [[ -a $PASTOR/terraform/github.gpg ]] && \
-  export GITHUB_TOKEN=$(pass terraform/digitalocean) && \
+  GITHUB_TOKEN=$(pass terraform/digitalocean) && \
+  export GITHUB_TOKEN && \
   echo "exported GITHUB_TOKEN"
 
 terraform "$@"
