@@ -16,3 +16,8 @@
 ```
 sudo sh -c "curl -L $(curl -s https://api.github.com/repos/adnanh/webhook/releases/latest | grep -o -E "https://.+?-linux-amd64.tar.gz") | tar -xzO > /usr/local/bin/webhook && chmod +x /usr/local/bin/webhook  # latest webhook
 ```
+
+### Unpack `dive` v0.9.1 to `/tmp`
+```
+(export GH=wagoodman/dive; export TAG=v0.9.1; curl -sSL "$(curl -s https://api.github.com/repos/$GH/releases/tags/$TAG | grep -o -E "https://.+?linux_amd64.+?.gz")") | tar xvz -C /tmp
+```
