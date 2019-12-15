@@ -1,4 +1,4 @@
-##!/usr/bin/env bash
+#!/usr/bin/env bash
 
 # name of current dir
 NAME=$(basename "$PWD")
