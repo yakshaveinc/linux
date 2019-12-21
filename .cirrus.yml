@@ -17,7 +17,7 @@ cache33store_task:
     curl -s -X POST --data-binary @${FILENAME} http://$CIRRUS_HTTP_CACHE_HOST/${FILENAME}
 
 cache33restore_task:
-  depends_on: build
+  depends_on: cache33store
   upload_script: |
     COMMIT=$(git rev-parse HEAD)
     FILENAME=yakshaveinc-${COMMIT}.zip
