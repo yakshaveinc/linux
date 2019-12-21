@@ -2,6 +2,9 @@
 #
 # * https://github.com/yakshaveinc/linux/issues/33
 
+container:
+  image: ubuntu:19.10
+
 build_task:
   build_script: |
     COMMIT=$(git rev-parse HEAD)
