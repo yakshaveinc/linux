@@ -1,3 +1,21 @@
+# share artifacts between tasks - build and upload in two different steps
+#
+# * https://github.com/yakshaveinc/linux/issues/33
+
+build_task:
+  build_script: |
+    COMMIT=$(git rev-parse HEAD)
+    # -j  - do not record directory names
+    # -r  - descend inside
+    zip -jr yakshaveinc-${COMMIT}.zip bin/
+
+upload_task:
+  depends_on: build
+  upload_script:
+    COMMIT=$(git rev-parse HEAD)
+    ls -la
+
+
 # build and push snapcraft Docker image with core18 and Ubuntu 18.04
 #
 # * https://hub.docker.com/r/yakshaveinc/snapcraft/tags
