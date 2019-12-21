@@ -7,7 +7,7 @@ container:
 
 build_task:
   build_script: |
-    apt-get install -y zip
+    apt-get update -y && apt-get install -y zip
     COMMIT=$(git rev-parse HEAD)
     # -j  - do not record directory names
     # -r  - descend inside
