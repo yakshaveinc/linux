@@ -15,7 +15,7 @@ build_task:
     zip -jr ${FILENAME} bin/
     ls -la
     # https://cirrus-ci.org/guide/writing-tasks/#http-cache
-    curl -s -X POST --data-binary ${FILENAME} http://$CIRRUS_HTTP_CACHE_HOST/builtbins
+    curl -s -X POST --data-binary @${FILENAME} http://$CIRRUS_HTTP_CACHE_HOST/builtbins
 
 upload_task:
   depends_on: build
