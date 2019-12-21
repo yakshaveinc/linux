@@ -13,18 +13,16 @@ build_task:
     # -j  - do not record directory names
     # -r  - descend inside
     zip -jr ${FILENAME} bin/
-    ls -la
     # https://cirrus-ci.org/guide/writing-tasks/#http-cache
-    curl -s -X POST --data-binary @${FILENAME} http://$CIRRUS_HTTP_CACHE_HOST/builtbins
+    curl -s -X POST --data-binary @${FILENAME} http://$CIRRUS_HTTP_CACHE_HOST/${FILENAME}
 
 upload_task:
   depends_on: build
   upload_script: |
     COMMIT=$(git rev-parse HEAD)
     FILENAME=yakshaveinc-${COMMIT}.zip
-    ls -la
-    curl http://$CIRRUS_HTTP_CACHE_HOST/builtbins
-    cat < <(less ${FILENAME})
+    curl -O http://$CIRRUS_HTTP_CACHE_HOST/${FILENAME}
+    ls -la ${FILENAME}
 
 
 # build and push snapcraft Docker image with core18 and Ubuntu 18.04
