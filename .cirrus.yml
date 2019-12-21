@@ -5,7 +5,7 @@
 container:
   image: gcr.io/cloud-builders/git
 
-build_task:
+cache33store_task:
   build_script: |
     apt-get update -y && apt-get install -y zip
     COMMIT=$(git rev-parse HEAD)
@@ -16,7 +16,7 @@ build_task:
     # https://cirrus-ci.org/guide/writing-tasks/#http-cache
     curl -s -X POST --data-binary @${FILENAME} http://$CIRRUS_HTTP_CACHE_HOST/${FILENAME}
 
-upload_task:
+cache33restore_task:
   depends_on: build
   upload_script: |
     COMMIT=$(git rev-parse HEAD)
