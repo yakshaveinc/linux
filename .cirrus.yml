@@ -11,7 +11,7 @@ build_task:
 
 upload_task:
   depends_on: build
-  upload_script:
+  upload_script: |
     COMMIT=$(git rev-parse HEAD)
     ls -la
 
