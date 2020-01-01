@@ -21,3 +21,11 @@ sudo sh -c "curl -L $(curl -s https://api.github.com/repos/adnanh/webhook/releas
 ```
 (export GH=wagoodman/dive; export TAG=v0.9.1; curl -sSL "$(curl -s https://api.github.com/repos/$GH/releases/tags/$TAG | grep -o -E "https://.+?linux_amd64.+?.gz")") | tar xvz -C /tmp
 ```
+---
+
+### Adding snap build to Travis
+```
+Generate SNAP_TOKEN for uploads.
+```
+podman run -it --rm yakshaveinc/snapcraft:core18 snapcraft export-login --snaps=yakshaveinc --acls=package_upload --channels stable -
+```
