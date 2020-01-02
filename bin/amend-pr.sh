@@ -75,6 +75,8 @@ cd "$SRCDIR" || exit
 git checkout "$BRANCH"
 
 green "..Adding upstream remote.."
+echo -e "useful commands:"
+yellow "  git rebase upstream/master"
 git remote add upstream "$REPO"
 git fetch upstream master
 
