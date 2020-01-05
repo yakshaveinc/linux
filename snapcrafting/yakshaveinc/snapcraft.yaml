@@ -1,9 +1,9 @@
 name: yakshaveinc
 version: eternal
 license: Unlicense
-summary: minimal snap that builds
+summary: minimal empty snap that builds
 description: |
-  an artifact that is delivered through the pipeline
+  empty artifact delivered through the pipeline
   [ GitHub ]->- [ Travis CI ]->- [ Snap Store ]
 
 base: core18
