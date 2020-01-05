@@ -57,6 +57,7 @@ jobs:
     - stage: upload to snapcraft
       name: build and deploy yakshaveinc snap
       script:
+        - cd snapcrafting/yakshaveinc/
         # use custom snapcraft image based on Ubuntu 18.04
         - docker run yakshaveinc/snapcraft:core18 snapcraft version
         - docker run -v $PWD:/src:Z -w /src yakshaveinc/snapcraft:core18 snapcraft
