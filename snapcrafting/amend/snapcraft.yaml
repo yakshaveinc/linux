@@ -22,4 +22,7 @@ parts:
     source: ./../../bin
     stage:
       - amend-pr.sh
+    stage-packages:
+      - curl
+      - git
 
