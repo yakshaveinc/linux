@@ -1,0 +1,23 @@
+name: amend
+version: 0.1.0
+license: Unlicense
+summary: amend <GitHub-PR-URL>
+description: |
+  
+  Script that automates updating and rebasing your pull
+  requests. Given PR URL, it detects your fork, clones
+  it to `/tmp/amend-pr-NUM` and adds 'upstream' remote.
+  Now you can rebase with `git rebase upstream/master`,
+  edit with `git rebase -i ...` and `git push --force`.
+
+base: core18
+
+apps:
+  amend:
+    command: amend-pr.sh
+
+parts:
+  amend:
+    plugin: dump
+    source: ./../../bin
+
