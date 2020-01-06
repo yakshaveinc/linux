@@ -20,4 +20,6 @@ parts:
   amend:
     plugin: dump
     source: ./../../bin
+    stage:
+      - amend-pr.sh
 
