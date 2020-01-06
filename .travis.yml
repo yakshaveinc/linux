@@ -64,6 +64,6 @@ jobs:
         # this step uses SNAP_TOKEN set in Travis settings and generated with
         #     snapcraft export-login --snaps=yakshaveinc,amend --acls=package_upload --channels=stable -
         - provider: snap
-          snap: yakshaveinc*.snap
+          snap: snapcrafting/yakshaveinc/yakshaveinc*.snap
           channel: stable
           skip_cleanup: true
