@@ -1,6 +1,5 @@
-# feature: snapcrafting, 4 lines
+# feature: snapcrafting, 3 lines
 *.snap
-/parts/
-/prime/
-/snap/
+snapcrafting/*/parts/
+snapcrafting/*/prime/
 
