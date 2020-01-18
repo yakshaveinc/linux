@@ -49,7 +49,7 @@ docker_builder:
     echo docker/stable.Dockerfile
     
   build_script: docker build -t $TAG -f docker/stable.Dockerfile docker
-  snap_script: docker run $TAG snapcraft --version
+  test_script: docker run $TAG snapcraft --version
   deploy_script: |
     # deploy is run only against master branch, because variables are not decrypted for read-only PR senders (for security)
     if [ "$CIRRUS_BRANCH" == "master" ]; then
