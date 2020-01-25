@@ -94,7 +94,7 @@ if (( PR > 256 )); then
 fi
 
 green "Run 'exit $ACK' to commit and force push changes."
-PS1="$SRCDIR ($BRANCH)$ " bash
+PS1="$SRCDIR (\$(git branch --show-current))$ " bash
 RET=$?
 if (( RET == ACK )); then
   green "Good! Pushing the PR"
