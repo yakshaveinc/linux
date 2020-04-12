@@ -10,6 +10,7 @@ in current dir, and create a link to it in `$HOME/bin`. Now
 ### List of scripts
 
  * `amend-pr.sh` - clone PR from GitHub, edit and push back
+ * `aws.sh` - run AWS CLI v2 from container using project AWS config
  * `list-open-ports.sh` - lists open listening ports
  * `lxd-runin.sh` - mount current dir to LXD container and run command
  * `runin-podman.sh` - run container with current dir mounted in
