@@ -21,6 +21,12 @@ sudo sh -c "curl -L $(curl -s https://api.github.com/repos/adnanh/webhook/releas
 ```
 (export GH=wagoodman/dive; export TAG=v0.9.1; curl -sSL "$(curl -s https://api.github.com/repos/$GH/releases/tags/$TAG | grep -o -E "https://.+?linux_amd64.+?.gz")") | tar xvz -C /tmp
 ```
+
+**Unpdate `pack` in `/usr/local/bin` to latest version**
+```
+(export GH=buildpacks/pack; export LATEST=$(curl -s https://api.github.com/repos/$GH/releases/latest | grep -o -E "https://.+?-linux.tgz"); echo "$LATEST"; curl -sSL "$LATEST" | sudo tar -C /usr/local/bin/ --no-same-owner -xzv $(basename $GH))
+```
+
 ---
 
 ### CI Integration setup
