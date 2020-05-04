@@ -15,6 +15,7 @@ requests or project offers that require this expertise.
 
 * [x] [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux) - Setting TravisCI for automating Linux, Docker and snap builds
 * [x] [![CirrusCI](https://api.cirrus-ci.com/github/yakshaveinc/linux.svg)](https://cirrus-ci.com/github/yakshaveinc/linux) - Setting CirrusCI for automating Docker builds
+* [x] Automatic upload of Docker containers from Cirrus CI to DockerHub  
 * [x] Automatic deploy of Docker containers from Travis CI to DockerHub  
       ![github->travis->dockerhub](./docops/ops-travis-dockerhub.svg)
 * [x] Automatic build and publish from Travis CI to Snap Store  
