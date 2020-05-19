@@ -3,4 +3,8 @@ jobs:
   name_or-jobid-no_spaces:
     runs-on: ubuntu-latest
     steps:
-      - run: echo meh.
+      - run: |
+          echo meh.
+          pwd
+          tree
+          ls -la
