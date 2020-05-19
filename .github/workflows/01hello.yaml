@@ -6,5 +6,4 @@ jobs:
       - run: |
           echo meh.
           pwd
-          tree
           ls -la
