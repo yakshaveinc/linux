@@ -1,3 +1,4 @@
+on: push
 jobs:
   name_or-jobid-no_spaces:
     run: echo meh.
