@@ -1,0 +1,25 @@
+name: myip
+version: "1"
+license: Unlicense
+summary: show external IP address
+description: |
+  uses DNS protocol and `dig` tool to query external IP from OpenDNS
+  
+base: core18
+
+apps:
+  myip:
+    command: myip.sh
+
+parts:
+  myip:
+    plugin: nil
+    source: .
+    # overriding the build/ step to copy the script for packing
+    # https://snapcraft.io/docs/parts-lifecycle#heading--parts-directories
+    override-build: |
+      pwd
+      cp myip.sh $SNAPCRAFT_PART_INSTALL/
+    # installing `dig`
+    stage-packages:
+      - dnsutils
