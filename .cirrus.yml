@@ -43,9 +43,6 @@ docker_builder:
     echo -e "\n# Install deps for 'version: git'" >> docker/stable.Dockerfile
     echo "RUN apt-get install --yes git" >> docker/stable.Dockerfile
 
-    echo -e "\n# Help detect podman container" >> docker/stable.Dockerfile
-    echo "RUN touch /.dockerenv" >> docker/stable.Dockerfile
-    
     echo docker/stable.Dockerfile
     
   build_script: docker build -t $TAG -f docker/stable.Dockerfile docker
