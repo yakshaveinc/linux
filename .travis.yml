@@ -47,11 +47,12 @@ jobs:
 
     # feature: snapcrafting, 13 lines
     - stage: upload to snapcraft
-      name: build and deploy yakshaveinc snap
+      name: build and publish snaps
       script:
         # use custom snapcraft image based on Ubuntu 18.04
         - docker run yakshaveinc/snapcraft:core18 snapcraft version
         - docker run -v $PWD:/src:Z -w /src/snapcrafting/yakshaveinc yakshaveinc/snapcraft:core18 snapcraft
+        - docker run -v $PWD:/src:Z -w /src/snapcrafting/myip yakshaveinc/snapcraft:core18 snapcraft
       deploy:
         # this step uses SNAP_TOKEN set in Travis settings and generated with
         #     snapcraft export-login --snaps=yakshaveinc,amend --acls=package_upload --channels=stable -
