@@ -18,7 +18,6 @@ parts:
     # overriding the build/ step to copy the script for packing
     # https://snapcraft.io/docs/parts-lifecycle#heading--parts-directories
     override-build: |
-      pwd
       cp myip.sh $SNAPCRAFT_PART_INSTALL/
     # installing `dig`
     stage-packages:
