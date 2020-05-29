@@ -1,24 +1,32 @@
-Yak Shave Inc. operations. Copy/paste code yourself, open an issue,
-or reach @abitrolly through https://t.me/abitrolly for support
-requests or project offers that require this expertise.
+Standard Operating Procedures for automating development and maintenance.
+Copy/paste, use issues, or [reach out](https://t.me/abitrolly) for
+onboarding the experise into your own workflow.
 
 #### Known Elements
 
 * [x] GitHub (https://github.com/yakshaveinc/linux)
 * [x] Travis CI (https://travis-ci.org/yakshaveinc/linux)
 * [x] DockerHub (https://hub.docker.com/r/yakshaveinc)
-  * [x] `yeesus` account for automatic builds
 * [x] Snap Store (https://snapcraft.io/yakshaveinc)
 * [x] CirrusCI (https://cirrus-ci.com/github/yakshaveinc/linux)
 
-#### Mastered Operations
+ (automatic uploads are done with separate `yeesus` account)
 
-* [x] [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux) - Setting TravisCI for automating Linux, Docker and snap builds
-* [x] [![CirrusCI](https://api.cirrus-ci.com/github/yakshaveinc/linux.svg)](https://cirrus-ci.com/github/yakshaveinc/linux) - Setting CirrusCI for automating Docker builds
-* [x] Automatic upload of Docker containers from Cirrus CI to DockerHub  
-* [x] Automatic deploy of Docker containers from Travis CI to DockerHub  
+#### Standard Operating Procedures (SOP)
+
+Every claim below could be validated by following the links.
+
+* [x] Automatic builds, testing, `docker` and `snap` delivery with [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
+  * [x] Including deploy of Docker containers from Travis CI to DockerHub  
       ![github->travis->dockerhub](./docops/ops-travis-dockerhub.svg)
-* [x] Automatic build and publish from Travis CI to Snap Store  
+  * [x] Including build and publish from Travis CI to Snap Store  
       ![github->travis->dockerhub](./docops/ops-travis-snapcraft.svg)
-  * https://snapcraft.io/yakshaveinc (@abitrolly)
-  * https://snapcraft.io/gitless (@techtonik, @abitrolly)
+    * https://snapcraft.io/yakshaveinc (@abitrolly)
+    * https://snapcraft.io/gitless (@techtonik, @abitrolly)
+      
+* [x] Automatic docker build and delivery with [![CirrusCI](https://api.cirrus-ci.com/github/yakshaveinc/linux.svg)](https://cirrus-ci.com/github/yakshaveinc/linux)
+  * [x] Including upload of Docker containers from Cirrus CI to DockerHub  
+
+---
+
+(no copyright) Yak Shave Inc.
