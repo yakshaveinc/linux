@@ -2,6 +2,7 @@ version: ~> 1.0
 
 # Ubuntu 18.04 LTS
 dist: bionic
+os: linux
 
 # https://docs.travis-ci.com/user/languages/minimal-and-generic/
 language: generic
@@ -59,4 +60,3 @@ jobs:
         - provider: snap
           snap: snapcrafting/yakshaveinc/yakshaveinc*.snap
           channel: stable
-          skip_cleanup: true
