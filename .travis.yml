@@ -55,8 +55,10 @@ jobs:
         - docker run -v $PWD:/src:Z -w /src/snapcrafting/yakshaveinc yakshaveinc/snapcraft:core18 snapcraft
         - docker run -v $PWD:/src:Z -w /src/snapcrafting/myip yakshaveinc/snapcraft:core18 snapcraft
       deploy:
-        # this step uses SNAP_TOKEN set in Travis settings and generated with
+        # the provider uses SNAP_TOKEN set in Travis settings and generated with
         #     snapcraft export-login --snaps=yakshaveinc,amend --acls=package_upload --channels=stable -
         - provider: snap
           snap: snapcrafting/yakshaveinc/yakshaveinc*.snap
           channel: stable
+          # use Travis dpl v2
+          edge: true
