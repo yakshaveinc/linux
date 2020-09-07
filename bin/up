@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -o xtrace
+
+sudo apt-get update
+sudo apt-get upgrade -V
+sudo apt-get autoremove
