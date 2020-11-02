@@ -5,9 +5,9 @@ ID=$(grep -oP '(?<=^ID=).+' /etc/os-release)
 set -o xtrace
 
 if [[ "$ID" == "ubuntu" ]]; then
-  sudo apt-get update
-  sudo apt-get upgrade -V
-  sudo apt-get autoremove
+  sudo apt update
+  sudo apt upgrade -V
+  sudo apt autoremove
 else
   sudo dnf up
 fi
