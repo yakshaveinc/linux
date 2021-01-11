@@ -27,3 +27,9 @@ podman run -v "$(pwd):/root/$NAME":Z -w "/root/$NAME" -it "$@"
 # dotfiles. while the `toolbox` may be useful for OS developers, who need to
 # test package installation and rollback, it is not secure enough to run
 # random projects from GitHub in isolation
+#
+# ---
+#
+# more concerns over using :Z and $HOME mounts
+# * https://github.com/kaitai-io/kaitai_struct_visualizer/pull/44/files#r543594607
+# * https://github.com/containers/podman/issues/8786
