@@ -27,6 +27,11 @@ sudo sh -c "curl -L $(curl -s https://api.github.com/repos/adnanh/webhook/releas
 (export GH=buildpacks/pack; export LATEST=$(curl -s https://api.github.com/repos/$GH/releases/latest | grep -o -E "https://.+?-linux.tgz"); echo "$LATEST"; curl -sSL "$LATEST" | sudo tar -C /usr/local/bin/ --no-same-owner -xzv $(basename $GH))
 ```
 
+**Get latest `watchexec`**
+```
+(export GH=watchexec; export LATEST=$(curl -s https://api.github.com/repos/$GH/$GH/releases/latest | grep -o -E "https://.+?_64.+?-linux-musl"); echo "$LATEST"; curl -sSL "$LATEST".tar.xz | sudo tar -C /usr/local/bin/ --no-same-owner --strip-components 1 -xJv $(basename $LATEST)/$GH)```
+```
+
 ---
 
 ### CI Integration setup
