@@ -6,7 +6,6 @@ usage: amend-pr.sh <url>
 example url https://github.com/hyperledger/fabric/pull/244
 
 untested and most likely doesn't work on:
-- PR in the same repo
 - PR in renamed repo
 "
 
@@ -18,8 +17,12 @@ fi
 
 PR=$(basename "$1")
 SRCDIR=/tmp/amend-pr-$PR
+# https://github.com/hyperledger/fabric
 REPO=$(dirname "$(dirname "$1")")
+# fabric
 PROJECT=$(basename "$REPO")
+# hyperledger
+ORG=$(basename "$(dirname "$REPO")")
 
 
 # -- echo helpers
@@ -55,6 +58,7 @@ green "..Getting username and branch for pushing.."
 # -S - but show errors
 NAMEBRANCH=$(curl -sS "$1" | grep -oP '(?<=value=").+?(?=" aria-label="Copy)' | head -1)
 # abitrolly:patch-1
+# py3-fixes
 if [[ $NAMEBRANCH ]]; then
   yellow "$NAMEBRANCH"
 else
@@ -64,6 +68,9 @@ fi
 # https://stackoverflow.com/questions/19482123/extract-part-of-a-string-using-bash-cut-split
 NAME=${NAMEBRANCH%:*}    # remove :* from the end
 BRANCH=${NAMEBRANCH#*:}  # remove *: from the beginning
+if [[ "$NAME" == "$BRANCH" ]]; then  # there was no :
+  NAME="$ORG"
+fi
 
 RWREPO=git@github.com:$NAME/$PROJECT
 green "..Cloning $RWREPO.."
