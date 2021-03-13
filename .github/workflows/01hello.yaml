@@ -3,7 +3,14 @@ jobs:
   name_or-jobid-no_spaces:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: pwd meh.
+        run: |
           echo meh.
           pwd
           ls -la
+      - name: branch event tag
+        run: |
+          echo "ref: ${{ github.ref }}"
+          echo "event: ${{ github.event }}"
+          echo "event_name: ${{ github.event_name }}"
+          echo "event,action: ${{ github.event.action }}"
