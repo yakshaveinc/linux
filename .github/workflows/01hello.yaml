@@ -13,4 +13,4 @@ jobs:
           echo "ref: ${{ github.ref }}"
           echo "event: ${{ github.event }}"
           echo "event_name: ${{ github.event_name }}"
-          echo "event,action: ${{ github.event.action }}"
+          echo "event.action: ${{ github.event.action }}"
