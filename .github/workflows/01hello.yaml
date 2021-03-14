@@ -16,3 +16,7 @@ jobs:
           echo "event: ${{ github.event }}"
           echo "event_name: ${{ github.event_name }}"
           echo "event.action: ${{ github.event.action }}"
+          echo "..."
+          set -x
+          git branch --contains ${{ github.sha }} --format "%(refname)" | cat
+          git reflog show --all | grep ${{ github.sha }}
