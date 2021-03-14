@@ -17,6 +17,9 @@ jobs:
           echo "event_name: ${{ github.event_name }}"
           echo "event.action: ${{ github.event.action }}"
           echo "..."
+      - uses: actions/checkout@v2.3.4
+      - name: grub da brunch frum ckott
+        run: |
           set -x
           git branch --contains ${{ github.sha }} --format "%(refname)" | cat
           git reflog show --all | grep ${{ github.sha }}
