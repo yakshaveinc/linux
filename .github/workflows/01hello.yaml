@@ -11,6 +11,8 @@ jobs:
       - name: branch event tag
         run: |
           echo "ref: ${{ github.ref }}"
+          echo "base_ref: ${{ github.base_ref }}"
+          echo "head_ref: ${{ github.head_ref }}"
           echo "event: ${{ github.event }}"
           echo "event_name: ${{ github.event_name }}"
           echo "event.action: ${{ github.event.action }}"
