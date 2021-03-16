@@ -27,7 +27,7 @@ jobs:
 
           SHA="${{ github.sha }}"
           # reflog shows only first 7 SHA chars
-          SHA7="${SHA::7}
+          SHA7="${SHA::7}"
           echo ">>> git reflog show --all | grep $SHA7"
           git reflog show --all
           git reflog show --all | grep "$SHA7"
