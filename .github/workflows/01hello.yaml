@@ -23,12 +23,18 @@ jobs:
       - name: grub da brunch frum ckott
         run: |
           SHA="${{ github.sha }}"
+          REF="${{ github.ref }}"
 
           echo ">>> git branch --contains $SHA"
           git branch --contains $SHA --format "%(refname)" | cat
 
+          echo ">>> git branch --contains $REF"
+          git branch --contains $REF --format "%(refname)" | cat
+
+          echo ">>> git branch --remotes --contains $REF"
+          git branch --contains $REF --format "%(refname)" | cat
+
           # reflog shows only first 7 SHA chars
           SHA7="${SHA::7}"
           echo ">>> git reflog show --all | grep $SHA7"
-          #git reflog show --all
-          git reflog show --all | grep "$SHA7"
+          git reflog show --all | grep $SHA7
