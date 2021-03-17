@@ -22,12 +22,13 @@ jobs:
           fetch-depth: 0
       - name: grub da brunch frum ckott
         run: |
-          echo ">>> git branch --contains ..."
-          git branch --contains ${{ github.sha }} --format "%(refname)" | cat
-
           SHA="${{ github.sha }}"
+
+          echo ">>> git branch --contains $SHA"
+          git branch --contains $SHA --format "%(refname)" | cat
+
           # reflog shows only first 7 SHA chars
           SHA7="${SHA::7}"
           echo ">>> git reflog show --all | grep $SHA7"
-          git reflog show --all
+          #git reflog show --all
           git reflog show --all | grep "$SHA7"
