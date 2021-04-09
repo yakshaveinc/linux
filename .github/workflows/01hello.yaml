@@ -38,3 +38,8 @@ jobs:
           SHA7="${SHA::7}"
           echo ">>> git reflog show --all | grep $SHA7"
           git reflog show --all | grep $SHA7
+          
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
