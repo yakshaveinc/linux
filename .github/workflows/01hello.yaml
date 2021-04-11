@@ -3,7 +3,20 @@ jobs:
   name_or-jobid-no_spaces:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: pwd meh.
+        run: |
           echo meh.
           pwd
           ls -la
+      - name: branch event tag
+        run: |
+          echo "github.ref: ${{ github.ref }}"
+          echo "github.base_ref: ${{ github.base_ref }}"
+          echo "github.head_ref: ${{ github.head_ref }}"
+          echo "github.event: ${{ github.event }}"
+          echo "github.event_name: ${{ github.event_name }}"
+          echo "github.event.base_ref: ${{ github.event.base_ref }}"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
