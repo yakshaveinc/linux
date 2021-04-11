@@ -18,8 +18,8 @@ jobs:
           echo "github.event.base_ref: ${{ github.event.base_ref }}"
           echo "--- ${{ github.ref }} + ${{ github.event.base_ref }}"
           echo "--- ${{ startsWith(github.ref, 'refs/tags/') }}"
-          echo "--- ${{ github.event.base_ref == 'ref/heads/master' }}"
-          echo "--- ${{ startsWith(github.ref, 'refs/tags/') && github.event.base_ref == 'ref/heads/master' }}"
+          echo "--- ${{ github.event.base_ref == 'refs/heads/master' }}"
+          echo "--- ${{ startsWith(github.ref, 'refs/tags/') && github.event.base_ref == 'refs/heads/master' }}"
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
