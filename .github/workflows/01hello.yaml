@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: pwd meh.
         run: |
-          echo meh. {{ $github.event.inputs.defaultParam }}
+          echo meh. ${{ github.event.inputs.defaultParam }}
           pwd
           ls -la
 
