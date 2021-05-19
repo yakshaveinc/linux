@@ -1,11 +1,19 @@
-on: push
+on:
+  # Trigger workflows manually through UI or API
+  workflow_dispatch:
+    inputs:
+      defaultParam:
+        default: 'username'
+        description: 'You are'
+        required: false
+
 jobs:
   name_or-jobid-no_spaces:
     runs-on: ubuntu-latest
     steps:
       - name: pwd meh.
         run: |
-          echo meh.
+          echo meh. {{ $github.event.inputs.defaultParam }}
           pwd
           ls -la
       - name: branch event tag
