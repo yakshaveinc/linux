@@ -1,0 +1,15 @@
+on:
+  workflow_dispatch
+
+jobs:
+  diskspace:
+    runs-on: ubuntu-latest
+    steps:
+      - name: du -h /
+        run: |
+          du --human-readable --max-depth 5 / 2>/dev/null | sort -h | tail -500
+
+      - name: dust
+        run: |
+          brew install dust
+          dust /
