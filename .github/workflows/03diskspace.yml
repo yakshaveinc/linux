@@ -5,11 +5,22 @@ jobs:
   diskspace:
     runs-on: ubuntu-latest
     steps:
-      - name: du -h /
+      - name: install
         run: |
-          du --human-readable --max-depth 5 / 2>/dev/null | sort -h | tail -500
-
-      - name: dust
-        run: |
+          echo "------ Install 'dust' (largest dirs)"
           brew install dust
+          echo "------ Install 'duf' (total space used)"
+          brew install duf
+          echo "------ Install 'tdu' (some summaries)"
+          brew install abitrolly/tap/tdu
+
+      - name: run
+        run: |
+          echo "----- du ------------------------------"
+          du --human-readable --max-depth 5 / 2>/dev/null | sort -h | tail -500
+          echo "----- duf ------------------------------"
+          duf
+          echo "----- tdu ------------------------------"
+          tdu -human /
+          echo "----- dust ------------------------------"
           dust /
