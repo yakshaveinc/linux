@@ -104,7 +104,14 @@ git checkout "$BRANCH"
 
 green "..Adding upstream remote.."
 echo -e "useful commands:"
-yellow "  git rebase upstream/$UPSTREAMBRANCH"
+rebase() {
+  green "..Running 'git rebase upstream/$UPSTREAMBRANCH'"
+  git rebase "upstream/$UPSTREAMBRANCH"
+}
+# exporting functions and used variables for subshell
+export -f green rebase
+export GREEN NC UPSTREAMBRANCH
+yellow "  rebase    - runs 'git rebase upstream/$UPSTREAMBRANCH'"
 git remote add upstream "$REPO"
 git fetch upstream "$UPSTREAMBRANCH"
 
