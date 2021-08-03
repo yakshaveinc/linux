@@ -50,15 +50,20 @@ yellow() {
 
 green "..Getting username and branch for pushing.."
 
-# value="abitrolly:patch-1" aria-label="Copied!"><sv
+PRHTML=$(curl -sS "$1")
+
+# matching content
+#     value="abitrolly:patch-1" aria-label="Copied!"><sv
+#
 # -o, --only-matching
 # -P, --perl-regexp
 # https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match
 # -s - be silent
 # -S - but show errors
-NAMEBRANCH=$(curl -sS "$1" | grep -oP '(?<=value=").+?(?=" aria-label="Copy)' | head -1)
-# abitrolly:patch-1
-# py3-fixes
+NAMEBRANCH=$(echo "$PRHTML" | grep -oP '(?<=value=").+?(?=" aria-label="Copy)' | head -1)
+# now $NAMEBRANCH can be
+# - abitrolly:patch-1   - PR from another repo
+# - py3-fixes           - PR from the same repo
 if [[ $NAMEBRANCH ]]; then
   yellow "$NAMEBRANCH"
 else
@@ -72,6 +77,22 @@ if [[ "$NAME" == "$BRANCH" ]]; then  # there was no :
   NAME="$ORG"
 fi
 
+green "..Getting upstream branch for rebasing.."
+# see above for explanation, also
+# -A, --after-context=NUM   print NUM lines after match
+# -m, --max-count=NUM
+# matching content
+#     commit into
+#
+#
+#
+#     <span title="buildpacks/docs:main"
+UPSTREAM=$(echo "$PRHTML" | grep -A 4 -m 1 'commit into' | grep -oP '(?<=span title=")[\w/:]+')
+# now $UPSTREAM is hyperledger/fabric:release-1.4
+UPSTREAMBRANCH=${UPSTREAM#*:}  # remove *:prefix
+yellow "$UPSTREAMBRANCH"
+
+
 RWREPO=git@github.com:$NAME/$PROJECT
 green "..Cloning $RWREPO.."
 
@@ -83,9 +104,9 @@ git checkout "$BRANCH"
 
 green "..Adding upstream remote.."
 echo -e "useful commands:"
-yellow "  git rebase upstream/master"
+yellow "  git rebase upstream/$UPSTREAMBRANCH"
 git remote add upstream "$REPO"
-git fetch upstream master
+git fetch upstream "$UPSTREAMBRANCH"
 
 # ACK is an exit code used to confirm force push. it is derived from PR number
 # by taking modulo, because exit codes can not be greater than 255
