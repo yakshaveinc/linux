@@ -87,7 +87,7 @@ green "..Getting upstream branch for rebasing.."
 #
 #
 #     <span title="buildpacks/docs:main"
-UPSTREAM=$(echo "$PRHTML" | grep -A 4 -m 1 'commit into' | grep -oP '(?<=span title=")[\w/:]+')
+UPSTREAM=$(echo "$PRHTML" | grep -A 4 -m 1 -P 'commits? into' | grep -oP '(?<=span title=")[\w/:]+')
 # now $UPSTREAM is hyperledger/fabric:release-1.4
 UPSTREAMBRANCH=${UPSTREAM#*:}  # remove *:prefix
 yellow "$UPSTREAMBRANCH"
