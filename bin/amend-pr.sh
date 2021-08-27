@@ -62,19 +62,23 @@ PRHTML=$(curl -sS "$1")
 # -S - but show errors
 NAMEBRANCH=$(echo "$PRHTML" | grep -oP '(?<=value=").+?(?=" aria-label="Copy)' | head -1)
 # now $NAMEBRANCH can be
+# - empty               - regexp failed to parse
 # - abitrolly:patch-1   - PR from another repo
 # - py3-fixes           - PR from the same repo
-if [[ $NAMEBRANCH ]]; then
-  yellow "$NAMEBRANCH"
-else
+if [[ -z $NAMEBRANCH ]]; then
   red "ERROR: can't parse branch name from GitHub markup"
   exit 255
 fi
-# https://stackoverflow.com/questions/19482123/extract-part-of-a-string-using-bash-cut-split
-NAME=${NAMEBRANCH%:*}    # remove :* from the end
-BRANCH=${NAMEBRANCH#*:}  # remove *: from the beginning
-if [[ "$NAME" == "$BRANCH" ]]; then  # there was no :
-  NAME="$ORG"
+yellow "$NAMEBRANCH"
+# https://stackoverflow.com/questions/229551/how-to-check-if-a-string-contains-a-substring-in-bash
+if [[ $NAMEBRANCH == *":"* ]]; then
+   # https://stackoverflow.com/questions/19482123/extract-part-of-a-string-using-bash-cut-split
+   NAME=${NAMEBRANCH%:*}    # remove :* from the end
+   BRANCH=${NAMEBRANCH#*:}  # remove *: from the beginning
+else
+   #SAMEREPO=true
+   NAME="$ORG"
+   BRANCH="$NAMEBRANCH"
 fi
 
 green "..Getting upstream branch for rebasing.."
