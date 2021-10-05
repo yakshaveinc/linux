@@ -53,14 +53,14 @@ green "..Getting username and branch for pushing.."
 PRHTML=$(curl -sS "$1")
 
 # matching content
-#     value="abitrolly:patch-1" aria-label="Copied!"><sv
+#     data-copy-feedback="Copied!" value="abitrolly:patch-1"
 #
 # -o, --only-matching
 # -P, --perl-regexp
 # https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match
 # -s - be silent
 # -S - but show errors
-NAMEBRANCH=$(echo "$PRHTML" | grep -oP '(?<=value=").+?(?=" aria-label="Copy)' | head -1)
+NAMEBRANCH=$(echo "$PRHTML" | grep -oP '(?<=data-copy-feedback="Copied!" value=").+?(?=")' | head -1)
 # now $NAMEBRANCH can be
 # - empty               - regexp failed to parse
 # - abitrolly:patch-1   - PR from another repo
