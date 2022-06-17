@@ -1,0 +1,16 @@
+on:
+  # run manually
+  workflow_dispatch:
+  # be reusable
+  workflow_call:
+
+jobs:
+  fail:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail
+        run: |
+          echo The failure is invevitable.
+          true
+          false
+          true
