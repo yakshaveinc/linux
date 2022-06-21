@@ -1,0 +1,22 @@
+on:
+  # run manually
+  workflow_dispatch:
+  # reuse
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: create platform specific files
+        run: |
+          echo "${{ matrix.os }}" > ${{ matrix.os }}.txt
+          
+      - name: upload to the same 'artifact' three times
+        uses: actions/upload-artifact@v3
+        with:
+          path: "*"
