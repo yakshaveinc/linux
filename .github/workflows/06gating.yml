@@ -1,7 +1,7 @@
 on:
   # run if another workflow completes
   workflow_run:
-    workflows: [02context.yaml]
+    workflows: [.github/workflows/02context.yaml]
     types:
       - completed
   
