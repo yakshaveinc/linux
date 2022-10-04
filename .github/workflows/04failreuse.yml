@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Fail
         run: |
-          echo The failure is invevitable.
+          echo The failure is inevitable.
           true
           false
           true
