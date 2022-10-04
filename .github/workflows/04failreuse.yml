@@ -14,3 +14,4 @@ jobs:
           true
           false
           true
+          echo Unachievable great success.
