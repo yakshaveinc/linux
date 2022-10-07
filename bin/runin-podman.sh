@@ -1,17 +1,71 @@
 #!/usr/bin/env bash
 
 # name of current dir
-NAME=$(basename "$PWD")
+DIRNAME=$(basename "$PWD")
 
-podman run -v "$(pwd):/root/$NAME":Z -w "/root/$NAME" -it "$@"
-# -t   -- allocate TTY
-# -i   -- keep STDIN open
+#######################################
+# Runs container while relabelling volumes for SELinux,
+# passing arguments. Container is destroyed on exit.
+# Globals:
+#   DIRNAME
+# Arguments:
+#   image name and the rest of command line parameters
+#######################################
+run_with_selinux() {
+   podman run -it --rm -v "$PWD:/root/$DIRNAME":Z -w "/root/$DIRNAME" "$@"
+   # -t   -- allocate TTY
+   # -i   -- keep STDIN open
+   # --rm -- remove after stop
+}
 
-# running podman/docker is not trivial and not convenient  - need to be aware
-# to :z :Z flags to volumes, -it flags to execute commands in the shell, need
-# to understand how share/unshare works if container specifies USER directive
+#######################################
+# Runs container, without SELinux limitations.
+# passing arguments to it. Container is destroyed on exit.
+# Globals:
+#   DIRNAME
+# Arguments:
+#   image name and the rest of command line parameters
+#######################################
+just_run() {
+   podman run -it --rm --security-opt label=disable \
+      -v "$PWD:/root/$DIRNAME" -w "/root/$DIRNAME" "$@"
+   # -t   -- allocate TTY
+   # -i   -- keep STDIN open
+   # --rm -- remove after stop
+   # --security-opt label=disable -- disable SELinux
+}
+
+just_run "$@"
+
+#### To save container before removal 
 #
-# `runin-podman.sh` tries to address some problems with that
+# podman container clone <id>
+# podman start --attach <id>
+#
+#### What is SELinux anyway?
+#
+# SELinux is a stuff that labels files on disk. Then reads labels to checks
+# if a process can access these files. :z :Z flags to volumes in
+# run_with_selinux() function are instuction to relabel files so that `podman`
+# can read/write them.
+#
+# The problem with labels is that there can be only one on a file. So if your
+# file had label, and you mounted a volume with it passing :z or :Z, you label
+# will be lost. If you pass you home to `podman` this way, some programs may
+# stop working, and you may experience a problem logging in.
+#
+# That's why `runin-podman.sh` uses just_run() function that turns off SELunux.
+#
+#### Other things to be aware if
+#
+# If an image contains USER directive, there might be need to use share/unshare
+# commands to give container write access to volumes.
+#
+# Concerns over using :z :Z and $HOME mounts.
+# * https://github.com/kaitai-io/kaitai_struct_visualizer/pull/44/files#r543594607
+# * https://github.com/containers/podman/issues/8786
+#
+#### This script and alternatives
 #
 # [ ] you can not reentry the container if you quit
 # [x] current directory is not mounted by default (with necessary :Z flag for Fedora)
@@ -19,7 +73,7 @@ podman run -v "$(pwd):/root/$NAME":Z -w "/root/$NAME" -it "$@"
 # [ ] there is no default image
 #
 # all these problem are addressed by https://github.com/containers/toolbox but
-# it also add a serious security issue
+# it also adds a serious security issue
 #
 # [x] `toolbox` makes the whole HOME directory r/w accessible
 #
@@ -27,9 +81,3 @@ podman run -v "$(pwd):/root/$NAME":Z -w "/root/$NAME" -it "$@"
 # dotfiles. while the `toolbox` may be useful for OS developers, who need to
 # test package installation and rollback, it is not secure enough to run
 # random projects from GitHub in isolation
-#
-# ---
-#
-# more concerns over using :Z and $HOME mounts
-# * https://github.com/kaitai-io/kaitai_struct_visualizer/pull/44/files#r543594607
-# * https://github.com/containers/podman/issues/8786
