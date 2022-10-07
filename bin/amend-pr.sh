@@ -51,20 +51,32 @@ yellow() {
 green "..Getting username and branch for pushing.."
 
 PRHTML=$(curl -sS "$1")
-
-# matching content
-#     data-copy-feedback="Copied!" value="abitrolly:patch-1"
-#
-# -o, --only-matching
-# -P, --perl-regexp
-# https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match
 # -s - be silent
 # -S - but show errors
-NAMEBRANCH=$(echo "$PRHTML" | grep -oP '(?<=data-copy-feedback="Copied!" value=").+?(?=")' | head -1)
-# now $NAMEBRANCH can be
-# - empty               - regexp failed to parse
-# - abitrolly:patch-1   - PR from another repo
-# - py3-fixes           - PR from the same repo
+
+#######################################
+# Get "username:branch" pair from GitHub PR HTML page contents.
+# Globals:
+#   PRHTML
+# Arguments:
+#   None
+# Outputs:
+#   Writes to stdout:
+#   - ""                  - failed to parse page
+#   - "username:branch:   - for PR from another repo
+#   - "branch"            - PR from the same repo
+#######################################
+parse_github_pr() {
+  # grep regexp expects PR page to contain this content
+  #
+  #     data-copy-feedback="Copied!" value="abitrolly:patch-1"
+  #
+  echo "$PRHTML" | grep -oP '(?<=data-copy-feedback="Copied!" value=").+?(?=")' | head -1
+  # -o, --only-matching
+  # -P, --perl-regexp
+  # https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match
+}
+NAMEBRANCH=$(parse_github_pr)
 if [[ -z $NAMEBRANCH ]]; then
   red "ERROR: can't parse branch name from GitHub markup"
   exit 255
