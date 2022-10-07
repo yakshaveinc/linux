@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-
-# name of current dir
-DIRNAME=$(basename "$PWD")
+#
+# Run container image, attaching current dir as `/workdir` volume.
+# Using volume convention from https://github.com/whalebrew/whalebrew
+#
+# Usage: runin-podman.sh <image> [arguments..]
 
 #######################################
 # Runs container while relabelling volumes for SELinux,
@@ -12,7 +14,7 @@ DIRNAME=$(basename "$PWD")
 #   image name and the rest of command line parameters
 #######################################
 run_with_selinux() {
-   podman run -it --rm -v "$PWD:/root/$DIRNAME":Z -w "/root/$DIRNAME" "$@"
+   podman run -it --rm -v "$PWD:/workdir":Z -w "/workdir" "$@"
    # -t   -- allocate TTY
    # -i   -- keep STDIN open
    # --rm -- remove after stop
@@ -28,7 +30,7 @@ run_with_selinux() {
 #######################################
 just_run() {
    podman run -it --rm --security-opt label=disable \
-      -v "$PWD:/root/$DIRNAME" -w "/root/$DIRNAME" "$@"
+      -v "$PWD:/workdir" -w "/workdir" "$@"
    # -t   -- allocate TTY
    # -i   -- keep STDIN open
    # --rm -- remove after stop
