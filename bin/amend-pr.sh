@@ -63,15 +63,22 @@ PRHTML=$(curl -sS "$1")
 # Outputs:
 #   Writes to stdout:
 #   - ""                  - failed to parse page
-#   - "username:branch:   - for PR from another repo
 #   - "branch"            - PR from the same repo
+#   - "username:branch"   - for PR from another repo
+#   - "username/repo:branch" - PR from another, renamed repo
 #######################################
 parse_github_pr() {
   # grep regexp expects PR page to contain this content
   #
   #     data-copy-feedback="Copied!" value="abitrolly:patch-1"
   #
-  echo "$PRHTML" | grep -oP '(?<=data-copy-feedback="Copied!" value=").+?(?=")' | head -1
+  # echo "$PRHTML" | grep -oP '(?<=data-copy-feedback="Copied!" value=").+?(?=")' | head -1
+  #
+  # but if the forked repo is renamed, then ^^^ won't catch it, so another match scans for this
+  #
+  #     head-ref"><a title="abitrolly/teaxyz-cli:patch-1"
+  #
+  echo "$PRHTML" | grep -oP '(?<=head-ref"><a title=").+?(?=")' | head -1
   # -o, --only-matching
   # -P, --perl-regexp
   # https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match
@@ -92,6 +99,11 @@ else
    NAME="$ORG"
    BRANCH="$NAMEBRANCH"
 fi
+if [[ $NAME == *"/"* ]]; then
+   FORK=$NAME
+else
+   FORK=$NAME/$PROJECT
+fi
 
 green "..Getting upstream branch for rebasing.."
 # see above for explanation, also
@@ -109,7 +121,7 @@ UPSTREAMBRANCH=${UPSTREAM#*:}  # remove *: prefix
 yellow "$UPSTREAMBRANCH"
 
 
-RWREPO=git@github.com:$NAME/$PROJECT
+RWREPO=git@github.com:$FORK
 green "..Cloning $RWREPO.."
 
 git clone "$RWREPO" "$SRCDIR"
