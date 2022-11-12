@@ -45,3 +45,13 @@ NVIM="load plugin example.lua" nvim
 ```
 
 Same.
+
+### Back to the 2022 way of doing things
+
+Okay, Google..
+
+```
+VIMINIT="lua print('halo')" nvim
+```
+
+This. Prints. 'halo'
