@@ -18,7 +18,30 @@ Creating `example.lua` with simple print.
 print("halo")
 ```
 
-Launching `neovim`.
+Launching `neovim`..
 
 Nothing happens.
 
+### Telling Neovim go get it
+
+```sh
+touch NEOVIM
+```
+
+Staring it again..
+
+Nothing.
+
+### Making it through the environment
+
+```sh
+NVIM="load plugin ." nvim
+```
+
+Nah. Doesn't work.
+
+```sh
+NVIM="load plugin example.lua" nvim
+```
+
+Same.
