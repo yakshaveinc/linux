@@ -46,12 +46,22 @@ NVIM="load plugin example.lua" nvim
 
 Same.
 
-### Back to the 2022 way of doing things
+### Back to the 2022
 
 Okay, Google..
 
-```
+```sh
 VIMINIT="lua print('halo')" nvim
 ```
 
 This. Prints. 'halo'
+
+### Right link
+
+`runtimepath` is longcat. Fix it.
+
+```sh
+LUAPLUGINPATH="$HOME/.local/share/nvim/site/pack/dirsomany/start/neovim-plugin-dotread"
+mkdir -p "$LUAPLUGINPATH"
+ln --symbolic "$PWD" "$LUAPLUGINPATH"/plugin
+```
