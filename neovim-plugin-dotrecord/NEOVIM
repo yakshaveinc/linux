@@ -1,0 +1,5 @@
+#!/bin/bash
+
+LUAPLUGINPATH="$HOME/.local/share/nvim/site/pack/dirsomany/start/neovim-plugin-dotread"
+mkdir -p "$LUAPLUGINPATH"
+ln --symbolic "$PWD" "$LUAPLUGINPATH"/plugin 

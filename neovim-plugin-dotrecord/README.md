@@ -65,3 +65,12 @@ LUAPLUGINPATH="$HOME/.local/share/nvim/site/pack/dirsomany/start/neovim-plugin-d
 mkdir -p "$LUAPLUGINPATH"
 ln --symbolic "$PWD" "$LUAPLUGINPATH"/plugin
 ```
+
+Prints. And committed.
+
+### Seppuku
+
+```sh
+./NEOVIM
+```
+
