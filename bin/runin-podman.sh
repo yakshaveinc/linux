@@ -6,7 +6,9 @@
 # * Containers are interactive with terminal attached `-it`
 # * Cleaned up automatically `--rm`
 #
-USAGE="Usage: runin-podman.sh <image> [arguments..]"
+USAGE="Usage: runin-podman.sh <image> [arguments..]
+
+Set VERBOSE to any value to print script messages to stderr."
 
 #######################################
 # Runs container while relabelling volumes for SELinux,
@@ -94,8 +96,8 @@ VERBOSE=${VERBOSE:-false}  # set to `false` command if unset
 if [ -z "$IMAGE" ]; then
   echo "$USAGE"
   if "$VERBOSE"; then
-    echo
-    echo "Error: missing required <image> argument"
+    echo >&2
+    echo "Error: missing required <image> argument" >&2
   fi
   exit 1
 fi
