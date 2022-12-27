@@ -10,6 +10,10 @@ USAGE="Usage: runin-podman.sh <image> [arguments..]
 
 Set VERBOSE to any value to print script messages to stderr."
 
+
+# Exit when any command fails
+set -e
+
 #######################################
 # Runs container while relabelling volumes for SELinux,
 # passing arguments. Container is destroyed on exit.
@@ -102,6 +106,11 @@ if [ -z "$IMAGE" ]; then
   exit 1
 fi
 
+
+if "$VERBOSE"; then
+  echo "runin: Pulling '$IMAGE' image ..." >&2
+fi
+podman pull "$IMAGE"
 
 just_run "$@"
 #run_with_selinux "$@"
