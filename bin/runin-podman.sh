@@ -107,10 +107,17 @@ if [ -z "$IMAGE" ]; then
 fi
 
 
-if "$VERBOSE"; then
-  echo "runin: Pulling '$IMAGE' image ..." >&2
+CMD="podman image exists $IMAGE"
+if $CMD; then
+  if "$VERBOSE"; then
+    echo "runin: Using existing '$IMAGE' image ..." >&2
+  fi
+else
+  if "$VERBOSE"; then
+    echo "runin: Pulling '$IMAGE' image ..." >&2
+  fi
+  podman pull "$IMAGE"
 fi
-podman pull "$IMAGE"
 
 just_run "$@"
 #run_with_selinux "$@"
