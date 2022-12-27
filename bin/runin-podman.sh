@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 #
-# Run container image, attaching current dir as `/workdir` volume.
-# Using volume convention from https://github.com/whalebrew/whalebrew
+# Securely run current directory in unprivileged Linux container.
 #
-# Usage: runin-podman.sh <image> [arguments..]
+# * Mounts current dir to `/workdir` volume (`whalebrew` convention)
+# * Containers are interactive with terminal attached `-it`
+# * Cleaned up automatically `--rm`
+#
+USAGE="Usage: runin-podman.sh <image> [arguments..]"
 
 #######################################
 # Runs container while relabelling volumes for SELinux,
@@ -37,7 +40,6 @@ just_run() {
    # --security-opt label=disable -- disable SELinux
 }
 
-just_run "$@"
 
 #### To save container before removal 
 #
@@ -83,3 +85,15 @@ just_run "$@"
 # dotfiles. while the `toolbox` may be useful for OS developers, who need to
 # test package installation and rollback, it is not secure enough to run
 # random projects from GitHub in isolation
+
+
+IMAGE=$1
+
+if [ -z "$IMAGE" ]; then
+  echo "$USAGE"
+  exit 1
+fi
+
+
+just_run "$@"
+#run_with_selinux "$@"
