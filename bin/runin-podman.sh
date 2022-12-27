@@ -88,9 +88,15 @@ just_run() {
 
 
 IMAGE=$1
+VERBOSE=${VERBOSE:+true}   # set to `true` command if any value is set
+VERBOSE=${VERBOSE:-false}  # set to `false` command if unset
 
 if [ -z "$IMAGE" ]; then
   echo "$USAGE"
+  if "$VERBOSE"; then
+    echo
+    echo "Error: missing required <image> argument"
+  fi
   exit 1
 fi
 
