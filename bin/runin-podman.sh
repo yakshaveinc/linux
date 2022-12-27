@@ -107,6 +107,8 @@ if [ -z "$IMAGE" ]; then
 fi
 
 
+# Inspect the image before running it
+
 CMD="podman image exists $IMAGE"
 if $CMD; then
   if "$VERBOSE"; then
@@ -119,5 +121,19 @@ else
   podman pull "$IMAGE"
 fi
 
-just_run "$@"
-#run_with_selinux "$@"
+# Detect if an image uses USER as it needs special handling
+# https://github.com/containers/podman/discussions/16258#discussioncomment-3962829
+if "$VERBOSE"; then
+  echo "runin: Checking if '$IMAGE' uses USER ..." >&2
+fi
+IMGUSER=$(podman image inspect --format '{{.Config.User}}' "$IMAGE")
+if [[ -z "$IMGUSER" ]]; then
+  just_run "$@"
+  #run_with_selinux "$@"
+else
+  if "$VERBOSE"; then
+    echo "runin: Image '$IMAGE' runs with custom USER '$IMGUSER' ..." >&2
+    echo "runin: Getting '$UID' for '$IMGUSER' for mapping filesystem access ..." >&2
+  fi
+  exit 1
+fi
