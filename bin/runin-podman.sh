@@ -47,6 +47,31 @@ just_run() {
 }
 
 
+#######################################
+# Reads UID for USER from image filesystem.
+# Globals:
+#   IMAGE
+#   IMGUSER
+#   VERBOSE
+# Outputs:
+#   Writes UID to stdout, exits on error
+image_uid() {
+  # Create but don't run
+  # https://unix.stackexchange.com/questions/331645/extract-file-from-docker-image/370221#370221
+  container=$(podman create "$IMAGE")
+  if "$VERBOSE"; then
+    echo "runin: Checking /etc/passwd for '$IMGUSER' in ${container::12}" >&2
+  fi
+  passwdline=$(podman cp "$container:/etc/passwd" - | grep --text "^$IMGUSER:")
+  if [[ -z "$passwdline" ]]; then
+    echo >&2
+    echo "Error: No USER in /etc/passwd (container ${container::12} is not removed)" >&2
+    exit 1
+  fi
+  podman rm "$container" > /dev/null
+  echo "$passwdline" | cut -f3 -d:
+}
+
 #### To save container before removal 
 #
 # podman container clone <id>
@@ -135,5 +160,7 @@ else
     echo "runin: Image '$IMAGE' runs with custom USER '$IMGUSER'" >&2
     echo "runin: Getting UID for '$IMGUSER' USER for mapping filesystem access" >&2
   fi
+  IMGUID=$(image_uid)
+  echo "$IMGUID"
   exit 1
 fi
