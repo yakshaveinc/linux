@@ -20,7 +20,7 @@ set -e
 # Globals:
 #   DIRNAME
 # Arguments:
-#   image name and the rest of command line parameters
+#   image name and additional podman parameters
 #######################################
 run_with_selinux() {
    podman run -it --rm -v "$PWD:/workdir":Z -w "/workdir" "$@"
@@ -35,7 +35,7 @@ run_with_selinux() {
 # Globals:
 #   DIRNAME
 # Arguments:
-#   image name and the rest of command line parameters
+#   image name and additional podman parameters
 #######################################
 just_run() {
    podman run -it --rm --security-opt label=disable \
@@ -161,6 +161,8 @@ else
     echo "runin: Getting UID for '$IMGUSER' USER for mapping filesystem access" >&2
   fi
   IMGUID=$(image_uid)
-  echo "$IMGUID"
-  exit 1
+  if "$VERBOSE"; then
+    echo "runin: Running podman with --userns=keep-id:uid=$IMGUID" >&2
+  fi
+  just_run "--userns=keep-id:uid=$IMGUID" "$@"
 fi
