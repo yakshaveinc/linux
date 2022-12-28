@@ -11,7 +11,7 @@ USAGE="Usage: runin-podman.sh <image> [arguments..]
 
 To print script messages to stderr, set VERBOSE to any value.
 
-  VERBOSE=1 runin-podman.sh alpine
+   VERBOSE=1 runin-podman.sh alpine
 
 To save container before exit.
 
