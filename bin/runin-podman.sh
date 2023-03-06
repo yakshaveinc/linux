@@ -4,8 +4,8 @@
 #
 # * Mounts current dir to `/workdir` volume (`whalebrew` convention)
 # * Containers are interactive with terminal attached `-it`
-# * Cleaned up automatically `--rm`
-# * SELinux labels are disabled
+# * Cleaned up automatically `--rm` (read USAGE below)
+# * SELinux labels are disabled (enabling means overwriting them)
 #
 USAGE="Usage: runin-podman.sh <image> [arguments..]
 
@@ -23,8 +23,8 @@ To save container before exit.
 set -e
 
 #######################################
-# Runs container while relabelling volumes for SELinux,
-# passing arguments. Container is destroyed on exit.
+# Runs container while relabelling volumes for SELinux, passing arguments.
+# Container is destroyed on exit.
 # Globals:
 #   DIRNAME
 # Arguments:
@@ -38,8 +38,8 @@ run_with_selinux() {
 }
 
 #######################################
-# Runs container, without SELinux limitations.
-# passing arguments to it. Container is destroyed on exit.
+# Runs container without SELinux restrictions, passing arguments.
+# Container is destroyed on exit.
 # Globals:
 #   DIRNAME
 # Arguments:
@@ -54,31 +54,6 @@ just_run() {
    # --security-opt label=disable -- disable SELinux
 }
 
-
-#######################################
-# Reads UID for USER from image filesystem.
-# Globals:
-#   IMAGE
-#   IMGUSER
-#   VERBOSE
-# Outputs:
-#   Writes UID to stdout, exits on error
-image_uid() {
-  # Create but don't run
-  # https://unix.stackexchange.com/questions/331645/extract-file-from-docker-image/370221#370221
-  container=$(podman create "$IMAGE")
-  if "$VERBOSE"; then
-    echo "runin: Checking /etc/passwd for '$IMGUSER' in ${container::12}" >&2
-  fi
-  passwdline=$(podman cp "$container:/etc/passwd" - | grep --text "^$IMGUSER:")
-  if [[ -z "$passwdline" ]]; then
-    echo >&2
-    echo "Error: No USER in /etc/passwd (container ${container::12} is not removed)" >&2
-    exit 1
-  fi
-  podman rm "$container" > /dev/null
-  echo "$passwdline" | cut -f3 -d:
-}
 
 #### What is SELinux anyway? Why it is turned off?
 #
@@ -108,24 +83,30 @@ image_uid() {
 #
 # https://github.com/containers/podman/discussions/16258
 
-#### This script (non-)implemented features compared to alternatives
-#
-# [ ] reentry the container if you quit
-# [x] mount volumes without SELinux (which otherwise requires :Z or :z flags)
-# [x] container is interactive by default
-# [x] current dir (PWD) is a volume at /workdir
-# [ ] default image if no image is specified
-
-#### Comparison with containers/toolbox
-#
-# Some script features are addressed by https://github.com/containers/toolbox but
-# it has a serious security issue that in addition to PWD, `toolbox` also makes the
-# whole HOME directory r/w accessible.
-#
-# That means SSH keys are readable, setup / test scripts can mess with
-# dotfiles. While the `toolbox` may be useful for OS developers, who need to
-# test package installation and rollback, it is not secure enough to run
-# random projects from GitHub in isolation.
+#######################################
+# Reads UID for USER from image filesystem.
+# Globals:
+#   IMAGE
+#   IMGUSER
+#   VERBOSE
+# Outputs:
+#   Writes UID to stdout, exits on error
+image_uid() {
+  # Create but don't run
+  # https://unix.stackexchange.com/questions/331645/extract-file-from-docker-image/370221#370221
+  container=$(podman create "$IMAGE")
+  if "$VERBOSE"; then
+    echo "runin: Checking /etc/passwd for '$IMGUSER' in ${container::12}" >&2
+  fi
+  passwdline=$(podman cp "$container:/etc/passwd" - | grep --text "^$IMGUSER:")
+  if [[ -z "$passwdline" ]]; then
+    echo >&2
+    echo "Error: No USER in /etc/passwd (container ${container::12} is not removed)" >&2
+    exit 1
+  fi
+  podman rm "$container" > /dev/null
+  echo "$passwdline" | cut -f3 -d:
+}
 
 
 IMAGE=$1
@@ -176,3 +157,24 @@ else
   fi
   just_run "--userns=keep-id:uid=$IMGUID" "$@"
 fi
+
+
+#### This script (non-)implemented features compared to alternatives
+#
+# [ ] reentry the container if you quit
+# [x] mount volumes without SELinux (which otherwise requires :Z or :z flags)
+# [x] container is interactive by default
+# [x] current dir (PWD) is a volume at /workdir
+# [ ] default image if no image is specified
+
+#### Comparison with containers/toolbox
+#
+# Some script features are addressed by https://github.com/containers/toolbox but
+# it has a serious security issue that in addition to PWD, `toolbox` also makes the
+# whole HOME directory r/w accessible.
+#
+# That means SSH keys are readable, setup / test scripts can mess with
+# dotfiles. While the `toolbox` may be useful for OS developers, who need to
+# test package installation and rollback, it is not secure enough to run
+# random projects from GitHub in isolation.
+
