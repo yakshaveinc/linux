@@ -46,3 +46,10 @@ Generate SNAP_TOKEN for uploads.
 ```
 podman run -it --rm yakshaveinc/snapcraft:core18 snapcraft export-login --snaps=yakshaveinc --acls=package_upload --channels stable -
 ```
+
+**Pushing image to DockerHub**
+
+This gets credentials from `pass` replacing space with `:`.
+```
+podman push --creds "$(pass docker | tr ' ' ':')" yakshaveinc/snapcraft:7.2.9-core18
+```
