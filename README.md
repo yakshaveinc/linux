@@ -27,6 +27,14 @@ Every claim below could be validated by following the links.
 * [x] Automatic docker build and delivery with [![CirrusCI](https://api.cirrus-ci.com/github/yakshaveinc/linux.svg)](https://cirrus-ci.com/github/yakshaveinc/linux)
   * [x] Including upload of Docker containers from Cirrus CI to DockerHub  
 
+### `snapcraft` Docker images for building snaps
+
+This repo contains [automation](https://github.com/yakshaveinc/linux/blob/master/.cirrus.yml)
+that builds and deploys docker images for
+[`snapcraft`](https://snapcraft.io/docs/snapcraft) build tool.
+
+https://hub.docker.com/r/yakshaveinc/snapcraft
+
 ---
 
 (no copyright) Yak Shave Inc.
