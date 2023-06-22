@@ -16,12 +16,12 @@ onboarding the experise into your own workflow.
 
 Active automation.
     
-* [x] Docker image builds with [![CirrusCI](https://api.cirrus-ci.com/github/yakshaveinc/linux.svg)](https://cirrus-ci.com/github/yakshaveinc/linux)
+* [x] Docker image builds with Cirrues CI [![CirrusCI](https://api.cirrus-ci.com/github/yakshaveinc/linux.svg)](https://cirrus-ci.com/github/yakshaveinc/linux)
   * [x] Including upload from Cirrus CI to DockerHub
      
 Inactive automation.
 
-* [x] Automatic builds, testing, `docker` and `snap` delivery with [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
+* [x] Automatic builds, testing, `docker` and `snap` delivery with Travis CI [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
   * [x] Including deploy of Docker containers from Travis CI to DockerHub  
       ![github->travis->dockerhub](./docops/ops-travis-dockerhub.svg)
   * [x] Including build and publish from Travis CI to Snap Store  
