@@ -21,10 +21,10 @@ Active automation.
      
 Inactive automation.
 
-* [x] Automatic builds, testing, `docker` and `snap` delivery with Travis CI [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
-  * [x] Including deploy of Docker containers from Travis CI to DockerHub  
+* [x] Automatic builds, testing and delivery with Travis CI [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
+  * [x] Build and deploy of Docker images to DockerHub  
       ![github->travis->dockerhub](./docops/ops-travis-dockerhub.svg)
-  * [x] Including build and publish from Travis CI to Snap Store  
+  * [x] Build and publish snaps to to Snap Store  
       ![github->travis->dockerhub](./docops/ops-travis-snapcraft.svg)
     * https://snapcraft.io/yakshaveinc (@abitrolly)
     * https://snapcraft.io/gitless (@techtonik, @abitrolly)
