@@ -14,7 +14,12 @@ onboarding the experise into your own workflow.
 
 #### Standard Operating Procedures (SOP)
 
-Every claim below could be validated by following the links.
+Active automation.
+    
+* [x] Docker image builds with [![CirrusCI](https://api.cirrus-ci.com/github/yakshaveinc/linux.svg)](https://cirrus-ci.com/github/yakshaveinc/linux)
+  * [x] Including upload from Cirrus CI to DockerHub
+     
+Inactive automation.
 
 * [x] Automatic builds, testing, `docker` and `snap` delivery with [![Travis](https://img.shields.io/travis/yakshaveinc/linux.svg)](https://travis-ci.org/yakshaveinc/linux)
   * [x] Including deploy of Docker containers from Travis CI to DockerHub  
@@ -23,9 +28,6 @@ Every claim below could be validated by following the links.
       ![github->travis->dockerhub](./docops/ops-travis-snapcraft.svg)
     * https://snapcraft.io/yakshaveinc (@abitrolly)
     * https://snapcraft.io/gitless (@techtonik, @abitrolly)
-      
-* [x] Automatic docker build and delivery with [![CirrusCI](https://api.cirrus-ci.com/github/yakshaveinc/linux.svg)](https://cirrus-ci.com/github/yakshaveinc/linux)
-  * [x] Including upload of Docker containers from Cirrus CI to DockerHub  
 
 ### `snapcraft` Docker images for building snaps
 
