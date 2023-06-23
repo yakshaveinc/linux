@@ -1,0 +1,29 @@
+# Build default branch and PRs, publish only from default.
+# Needs `STORE_LOGIN` configured https://github.com/snapcore/action-publish#store-login
+# Change channel from default `edge` if needed.
+
+name: Build and pubish snap package
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - id: build
+      uses: snapcore/action-build@v1
+      with:
+        path: snapcrafting/myip
+    - id: publish
+      if: github.ref == format('refs/heads/{0}', "master")
+      uses: snapcore/action-publish@v1
+      env:
+        SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
+      with:
+        snap: ${{ steps.build.outputs.snap }}
+        release: stable
