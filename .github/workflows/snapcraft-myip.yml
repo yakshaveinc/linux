@@ -20,7 +20,7 @@ jobs:
       with:
         path: snapcrafting/myip
     - id: publish
-      if: github.ref == format('refs/heads/{0}', "master")
+      if: github.ref == format('refs/heads/{0}', fromJSON('"master"'))
       uses: snapcore/action-publish@v1
       env:
         SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.STORE_LOGIN }}
