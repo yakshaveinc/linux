@@ -5,7 +5,7 @@ summary: show external IP address
 description: |
   uses DNS protocol and `dig` tool to query external IP from OpenDNS
   
-base: core20
+base: core22
 
 apps:
   myip:
