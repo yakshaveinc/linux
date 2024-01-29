@@ -6,7 +6,7 @@ description: |
   empty artifact delivered through the pipeline
   [ GitHub ]->- [ Travis CI ]->- [ Snap Store ]
 
-base: core18
+base: core22
 
 parts:
   yakshaveinc:
