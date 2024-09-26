@@ -25,7 +25,7 @@ cache33restore_task:
     ls -la ${FILENAME}
 
 
-# build and push Ubuntu 18.04 based Docker image with `snapcraft` from stable channel
+# build and push Docker image with `snapcraft` tool
 #
 # * https://hub.docker.com/r/yakshaveinc/snapcraft/tags
 # * https://forum.snapcraft.io/t/creating-docker-images-for-snapcraft/11739
