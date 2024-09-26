@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# exit on errors
+set -e
+
 USAGE="\
 usage: amend-pr.sh <url>
 
