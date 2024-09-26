@@ -31,23 +31,13 @@ cache33restore_task:
 # * https://forum.snapcraft.io/t/creating-docker-images-for-snapcraft/11739
 
 docker_builder:
-  matrix:
-    - env:
-        CORE: core18
-        UBUNTU: 18.04
-    - env:
-        CORE: core20
-        UBUNTU: 20.04
   env:
     TAG: yakshaveinc/snapcraft
+    CORE: core24
     DOCKER_USERNAME: ENCRYPTED[89bc5b18538c2260d2840aa63a69b21ea4f247085793e6ddfc2270629b4f615b684dfca53a5f5debcabbe1b4f6d8b965]
     DOCKER_PASSWORD: ENCRYPTED[5d5ec522913fd2c5b6dda34b044cdb55f01aae995150a98eba8a040a83126eb2e4b3e76209316aa3fe0af7ef8e4388ef]
-  clone_script: git clone --depth=100 https://github.com/snapcore/snapcraft    
   build_script: |
-    # build bionic (18.04) image instead of xenial (16.04) for more
-    # building options for core18 based snaps
-    cd snapcraft/docker
-    docker build . -t $TAG:$CORE --build-arg RISK=stable --build-arg UBUNTU=$UBUNTU
+    docker build . -f Dockerfile.snapcraft -t $TAG:$CORE
   test_script: docker run $TAG:$CORE snapcraft --version
   deploy_script: |
     # deploy is run only against master branch, because variables are not decrypted for read-only PR senders (for security)
