@@ -44,7 +44,7 @@ brew install buildpacks/tap/pack
 
 Generate SNAP_TOKEN for uploads.
 ```
-podman run -it --rm yakshaveinc/snapcraft:core24 export-login --snaps=yakshaveinc --acls=package_upload --channels stable -
+podman run -it --rm yakshaveinc/snapcraft:core24 export-login --acls=package_upload --channels stable -
 ```
 
 **Pushing image to DockerHub**
