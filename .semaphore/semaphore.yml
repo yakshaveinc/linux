@@ -16,4 +16,3 @@ blocks:
           commands:
             - ls -la
             - cd snapcrafting/yakshaveinc
-            - snapcraft
