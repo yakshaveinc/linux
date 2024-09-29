@@ -6,12 +6,13 @@ agent:
   containers:
     - name: main
       image: 'yakshaveinc/snapcraft:core24' # Your primary container where commands are run
+      entrypoint: /bin/bash
 
 blocks:
-  - name: Hello World
+  - name: snap build and push
     task:
       jobs:
-        - name: Test job
+        - name: Build snap
           commands:
             - ls -la
             - cd snapcrafting/yakshaveinc
