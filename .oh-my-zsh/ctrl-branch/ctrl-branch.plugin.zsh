@@ -23,17 +23,22 @@ ctrl-branch-command() {
     branch=${branch%% *}
     BRANCHES+=($branch)
 
-    ## get shortcut
+    ## assign shortcuts
     # XXX get symbol shortcut instead of numeric
     # XXX empty labels when exhausted
-    # XXX [m] always main
-    HOTKEYS+=($i)
-    ((i++))
+
+    # [m] always main
+    if [[ $branch == "main" ]]; then
+      HOTKEYS+=("m")
+    else
+      HOTKEYS+=($i)
+      ((i++))
+    fi
   done
 
   i=1
   for m in $MENU; do
-    print $HOTKEYS[$i] $m
+    print $HOTKEYS[$i]")" $m
     ((i++))
   done
 
