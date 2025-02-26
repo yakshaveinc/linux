@@ -24,18 +24,36 @@ ctrl-branch-command() {
     BRANCHES+=($branch)
 
     ## assign shortcuts
-    # XXX get symbol shortcut instead of numeric
-    # XXX empty labels when exhausted
-
+    # XXX when no shortcut found, assign free number then letter
     # [m] always main
-    if [[ $branch == "main" ]]; then
+    if [[ $branch == "main" || $branch == "master" ]]; then
       HOTKEYS+=("m")
     else
-      HOTKEYS+=($i)
-      ((i++))
+      IDX=0
+      for ((n=1; n < ${#branch}; n++)) {
+        char=$branch[$n]
+        if [[ $char == "m" ]]; then
+          continue
+        fi
+        # if $char is in $HOTKEYS
+        IDX=$HOTKEYS[(I)$char]
+        if [[ $IDX == 0 ]]; then
+          HOTKEYS+=($char)
+          break
+        fi
+      }
+      # if no shortcut found, assign placeholder
+      if [[ $IDX != 0 ]]; then
+        HOTKEYS+=("_")
+      fi
     fi
   done
 
+  #HOTKEYS+=($i)
+  #((i++))
+
+  ## show menu
+  # XXX highlight shortcut letter inline in yellow
   i=1
   for m in $MENU; do
     print $HOTKEYS[$i]")" $m
