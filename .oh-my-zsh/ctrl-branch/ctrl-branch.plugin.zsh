@@ -55,13 +55,21 @@ ctrl-branch-command() {
 
   ## show menu
   # highlight shortcut letter inline in yellow
-  # XXX preserve existing color after highlight
+  # preserve branch color after hotkey highlight
   i=1
   for m in $MENU; do
-    key=$HOTKEYS[$i]
-    hot=$fg_bold[yellow]$key$reset_color
-    # replace key in branch name with highlight
     branch=$BRANCHES[$i]
+
+    # get active branch highlight color
+    ## strip active branch marker
+    m2=${m[3,-1]}
+    ## strip everything after branch name
+    active_color=${m2%%$branch*}
+    #printf "%q\n" $active_color
+
+    key=$HOTKEYS[$i]
+    hot=$fg_bold[yellow]$key$reset_color$active_color
+    # replace key in branch name with highlight
     hotbr=${branch/$key/$hot}
 
     print ${m/$branch/$hotbr}
