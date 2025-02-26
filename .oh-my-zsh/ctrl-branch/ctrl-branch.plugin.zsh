@@ -1,6 +1,7 @@
 
 # https://wiki.zshell.dev/community/zsh_handbook
 # https://gist.github.com/ClementNerma/1dd94cb0f1884b9c20d1ba0037bdcde2
+# https://helpful.wiki/zsh/
 
 ctrl-branch-command() {
   # read `git branch` command
@@ -53,10 +54,20 @@ ctrl-branch-command() {
   #((i++))
 
   ## show menu
-  # XXX highlight shortcut letter inline in yellow
+  # highlight shortcut letter inline in yellow
+  # XXX preserve existing color after highlight
   i=1
   for m in $MENU; do
-    print $HOTKEYS[$i]")" $m
+    key=$HOTKEYS[$i]
+    hot=$fg_bold[yellow]$key$reset_color
+    # replace key in branch name with highlight
+    branch=$BRANCHES[$i]
+    hotbr=${branch/$key/$hot}
+
+    print ${m/$branch/$hotbr}
+
+    # as alternative place symbol first on the line
+    #print $hot $m
     ((i++))
   done
 
