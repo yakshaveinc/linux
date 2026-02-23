@@ -71,17 +71,24 @@ PRHTML=$(curl -sS "$1")
 #   - "username/repo:branch" - PR from another, renamed repo
 #######################################
 parse_github_pr() {
-  # grep regexp expects PR page to contain this content
+  # function expected PR page markup to contain this content
   #
   #     data-copy-feedback="Copied!" value="abitrolly:patch-1"
   #
   # echo "$PRHTML" | grep -oP '(?<=data-copy-feedback="Copied!" value=").+?(?=")' | head -1
   #
-  # but if the forked repo is renamed, then ^^^ won't catch it, so another match scans for this
+  # but if the forked repo was renamed, then ^^^ wouldn't catch it, so alternative match needed
   #
   #     head-ref"><a title="abitrolly/teaxyz-cli:patch-1"
   #
-  echo "$PRHTML" | grep -oP '(?<=head-ref"><a title=").+?(?=")' | head -1
+  # echo "$PRHTML" | grep -oP '(?<=head-ref"><a title=").+?(?=")' | head -1
+  #
+  # but then GitHub changed markup
+  #
+  #     <a href=".." class="PullRequestBranchName-...">abitrolly:patch-2</a>
+  #
+  echo "$PRHTML" | grep -oP 'PullRequestBranchName-.+?>\K[^<]+' | tail -1
+  # \K  - discard everything up to this point
   # -o, --only-matching
   # -P, --perl-regexp
   # https://unix.stackexchange.com/questions/13466/can-grep-output-only-specified-groupings-that-match
@@ -109,18 +116,27 @@ else
 fi
 
 green "..Getting upstream branch for rebasing.."
-# see above for explanation, also
+# see parse_github_pr above for explanation, also
 # -A, --after-context=NUM   print NUM lines after match
 # -m, --max-count=NUM
-# matching content
+# the regexp expected the following matching content
+#
 #     commit into
 #
 #
 #
 #     <span title="buildpacks/docs:main"
-UPSTREAM=$(echo "$PRHTML" | grep -A 4 -m 1 -P 'commits? into' | grep -oP '(?<=span title=")[^"]+')
-# now $UPSTREAM is hyperledger/fabric:release-1.4
-UPSTREAMBRANCH=${UPSTREAM#*:}  # remove *: prefix
+#
+# UPSTREAM=$(echo "$PRHTML" | grep -A 4 -m 1 -P 'commits? into' | grep -oP '(?<=span title=")[^"]+')
+## now $UPSTREAM is hyperledger/fabric:release-1.4
+# UPSTREAMBRANCH=${UPSTREAM#*:}  # remove *: prefix
+#
+# but then GitHub changed markup
+#
+#     wants to merge 2 commits into<a href="/containers/toolbox/tree/main" ...
+#
+UPSTREAMBRANCH=$(echo "$PRHTML" | grep -oP 'commits? into<a href=".+?tree/\K[^"]+' | head -1)
+# now $UPSTREAMBRANCH is main
 yellow "$UPSTREAMBRANCH"
 
 
