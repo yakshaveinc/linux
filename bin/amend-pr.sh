@@ -75,19 +75,26 @@ parse_github_pr() {
   #
   #     data-copy-feedback="Copied!" value="abitrolly:patch-1"
   #
-  # echo "$PRHTML" | grep -oP '(?<=data-copy-feedback="Copied!" value=").+?(?=")' | head -1
+  #echo "$PRHTML" | grep -oP '(?<=data-copy-feedback="Copied!" value=").+?(?=")' | head -1
   #
   # but if the forked repo was renamed, then ^^^ wouldn't catch it, so alternative match needed
   #
   #     head-ref"><a title="abitrolly/teaxyz-cli:patch-1"
   #
-  # echo "$PRHTML" | grep -oP '(?<=head-ref"><a title=").+?(?=")' | head -1
+  #echo "$PRHTML" | grep -oP '(?<=head-ref"><a title=").+?(?=")' | head -1
   #
   # but then GitHub changed markup
   #
   #     <a href=".." class="PullRequestBranchName-...">abitrolly:patch-2</a>
   #
-  echo "$PRHTML" | grep -oP 'PullRequestBranchName-.+?>\K[^<]+' | tail -1
+  #echo "$PRHTML" | grep -oP 'PullRequestBranchName-.+?>\K[^<]+' | tail -1
+  #
+  # and then changed it again
+  #
+  #     data-component="BranchName">abitrolly:patch-1</a>
+
+  echo "$PRHTML" | grep -oP 'data-component="BranchName">\K[^<]+' | tail -1
+
   # \K  - discard everything up to this point
   # -o, --only-matching
   # -P, --perl-regexp
